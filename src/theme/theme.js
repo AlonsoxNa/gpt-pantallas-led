@@ -7,8 +7,14 @@ export const theme = createTheme({
       secondary: "#E4ECFD"
     },
     secondary: {
-      main: "#656565"
+      main: "#DAF7A6 "
     },
-    mode: 'light' // Aquí se puede cambiar a dark para tener modo oscuro
+    mode: 'light', // Aquí se puede cambiar a dark para tener modo oscuro
+    tagEdificio: {
+      main: '#58D68D'
+    },
+    tagSala: {
+      main: '#F5B041'
+    }
   }
 })

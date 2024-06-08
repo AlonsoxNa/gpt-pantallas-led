@@ -1,5 +1,10 @@
+import { Typography } from '@mui/material';
+import { AdminLayout } from '../../layout/AdminLayout';
+
 export const Usuarios = () => {
   return (
-    <div>Usuarios</div>
+    <AdminLayout>
+      <Typography variant="h4">Usuarios</Typography>
+    </AdminLayout>
   );
 };
