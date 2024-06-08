@@ -1,16 +1,20 @@
 import { Button, Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
+export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medium" />, accionIcono } ) => {
 
-export const CardCustomPantalla = ( { pantalla } ) => {
+  const onClickIcono = () => {
+    accionIcono( pantalla );
+  };
+
   return (
-    <Card sx={ { minWidth: 275, mt: 2 } }>
+    <Card sx={ { minWidth: 275, mt: 4 } }>
       <CardContent>
         <Typography variant="h5" component="h6" textAlign="center">
           Mensaje activo:
         </Typography>
 
-        <Typography variant="body2" component="p" textAlign="center" sx={ { my: 1 } }>
+        <Typography variant="body1" component="p" textAlign="center" sx={ { my: 1 } }>
           { pantalla.mensaje }
         </Typography>
       </CardContent>
@@ -31,8 +35,8 @@ export const CardCustomPantalla = ( { pantalla } ) => {
         >
           { pantalla.sala }
         </Button>
-        <IconButton >
-          <EditIcon />
+        <IconButton onClick={ onClickIcono } >
+          { icono }
         </IconButton>
       </CardActions>
     </Card>

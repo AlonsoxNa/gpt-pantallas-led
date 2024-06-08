@@ -5,6 +5,11 @@ import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla';
 import { AdminLayout } from '../../layout/AdminLayout';
 
 export const Pantallas = () => {
+
+  const onEditPantalla = ( pantalla ) => {
+    console.log( "Editando pantalla con id:", pantalla.id );
+  };
+
   return (
     <AdminLayout>
       <Grid container justifyContent="space-between">
@@ -16,7 +21,7 @@ export const Pantallas = () => {
       <Grid container>
         { pantallas.map( ( pantalla ) => (
           <Grid item xs={ 12 } key={ pantalla.id }>
-            <CardCustomPantalla pantalla={ pantalla } />
+            <CardCustomPantalla pantalla={ pantalla } accionIcono={ onEditPantalla } />
           </Grid>
         ) ) }
 
