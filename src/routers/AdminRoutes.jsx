@@ -1,7 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Pantallas } from '../pages/admin/Pantallas';
-import { Usuarios } from '../pages/admin/Usuarios';
-import { PantallasDeUsuario } from '../pages/admin/PantallasDeUsuario';
+import { Pantallas, Usuarios, PantallasDeUsuario } from '../pages/admin';
 import { CambiarMensajePantalla } from '../pages/shared/CambiarMensajePantalla';
 import { AdminLayout } from '../layout/AdminLayout';
 
