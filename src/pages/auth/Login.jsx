@@ -60,7 +60,6 @@ export const Login = () => {
     >
       <Grid
         container
-        // direction="column"
         gap={ 2 }
         maxWidth="90%"
         sx={ {
