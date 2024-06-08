@@ -1,8 +1,8 @@
-import { Button, Card, CardActions, CardContent, Grid, IconButton, Typography } from '@mui/material';
-import { AdminLayout } from '../../layout/AdminLayout';
-import EditIcon from '@mui/icons-material/Edit';
-import { pantallas } from '../../assets/data/pantallas';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Button, Grid, Typography } from '@mui/material';
+import { pantallas } from '../../assets/data/pantallas';
+import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla';
+import { AdminLayout } from '../../layout/AdminLayout';
 
 export const Pantallas = () => {
   return (
@@ -16,38 +16,7 @@ export const Pantallas = () => {
       <Grid container>
         { pantallas.map( ( pantalla ) => (
           <Grid item xs={ 12 } key={ pantalla.id }>
-            <Card sx={ { minWidth: 275, mt: 2 } }>
-              <CardContent>
-                <Typography variant="h5" component="h6" textAlign="center">
-                  Mensaje activo:
-                </Typography>
-
-                <Typography variant="body2" component="p" textAlign="center" sx={ { my: 1 } }>
-                  { pantalla.mensaje }
-                </Typography>
-              </CardContent>
-              <CardActions sx={ { justifyContent: 'center', gap: 4 } }>
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="tagEdificio"
-                  sx={ { textTransform: 'none' } }
-                >
-                  { pantalla.ubicacion }
-                </Button>
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="tagSala"
-                  sx={ { textTransform: 'none' } }
-                >
-                  { pantalla.sala }
-                </Button>
-                <IconButton >
-                  <EditIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
+            <CardCustomPantalla pantalla={ pantalla } />
           </Grid>
         ) ) }
 

@@ -15,6 +15,14 @@ export const theme = createTheme({
     },
     tagSala: {
       main: '#F5B041'
+    },
+    habilitado: {
+      main: '#58D68D'
+    },
+    deshabilitado: {
+      main: '#EC7063'
+    
+    }
     }
   }
-})
+)
