@@ -1,5 +1,4 @@
 import { Button, Grid, Typography } from '@mui/material';
-import { AdminLayout } from '../../layout/AdminLayout';
 import { useLocation } from 'react-router-dom';
 import { pantallasUsuario } from '../../assets/data/pantallasUsuario';
 import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla';
@@ -16,7 +15,7 @@ export const PantallasDeUsuario = () => {
   };
 
   return (
-    <AdminLayout>
+    <>
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item xs={ 8 }>
           <Typography variant="h4">Pantallas asociadas a { usuario.nombre }</Typography>
@@ -35,6 +34,6 @@ export const PantallasDeUsuario = () => {
         ) ) }
 
       </Grid>
-    </AdminLayout>
+    </>
   );
 };
