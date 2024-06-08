@@ -18,7 +18,7 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           { pantalla.mensaje }
         </Typography>
       </CardContent>
-      <CardActions sx={ { justifyContent: 'center', gap: 4 } }>
+      <CardActions sx={ { justifyContent: 'space-around', gap: 4 } }>
         <Button
           variant="contained"
           size="medium"

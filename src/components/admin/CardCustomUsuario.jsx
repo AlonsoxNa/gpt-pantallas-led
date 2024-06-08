@@ -17,7 +17,7 @@ export const CardCustomUsuario = ( { usuario } ) => {
           { usuario.nombre }
         </Typography>
       </CardContent>
-      <CardActions sx={ { justifyContent: 'center', gap: 4 } }>
+      <CardActions sx={ { justifyContent: 'space-around', gap: 4 } }>
         <Button
           variant="contained"
           size="medium"
