@@ -1,29 +1,25 @@
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Button, Grid, Typography } from '@mui/material';
-import { pantallas } from '../../assets/data/pantallas';
-import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla';
+import { Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { pantallasUsuario } from '../../assets/data/pantallasUsuario';
+import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla';
 
 export const Pantallas = () => {
 
   const navigate = useNavigate();
 
   const onEditPantalla = ( pantalla ) => {
-    navigate( '/admin/cambiar-mensaje-pantalla', { state: { pantalla } } );
+    navigate( '/usuario/cambiar-mensaje-pantalla', { state: { pantalla } } );
   };
 
   return (
     <>
       <Grid container justifyContent="space-between">
-        <Typography variant="h4">Pantallas</Typography>
-        <Button variant="contained" startIcon={ <AddCircleIcon /> }>
-          Agregar
-        </Button>
+        <Typography variant="h4">Pantallas de Renzo</Typography>
       </Grid>
       <Grid container>
-        { pantallas.map( ( pantalla ) => (
+        { pantallasUsuario.map( ( pantalla ) => (
           <Grid item xs={ 12 } key={ pantalla.id }>
-            <CardCustomPantalla pantalla={ pantalla } accionIcono={ onEditPantalla } />
+            <CardCustomPantalla pantalla={ pantalla.pantalla } accionIcono={ onEditPantalla } />
           </Grid>
         ) ) }
 

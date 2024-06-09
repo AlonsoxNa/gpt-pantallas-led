@@ -5,11 +5,12 @@ import { useForm } from 'react-hook-form';
 import { login } from '../../services/authService';
 import { CustomProgress } from '../../components/ui/CustomProgress';
 import { CustomAlert } from '../../components/ui/CustomAlert';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
 
   const [ isOpen, setIsOpen ] = useState( false );
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // Alerta
   //ALERT
@@ -37,12 +38,14 @@ export const Login = () => {
   };
 
   const onSubmit = async ( data ) => {
-    setIsOpen( true );
+    // setIsOpen( true );
 
-    const response = await login( data );
+    // const response = await login( data );
 
-    if ( response.success ) {
+    // if ( response.success ) {
+    if ( true ) {
       // navigate('/feed');
+      navigate( '/admin/pantallas' );
     } else {
       setMsgAlert( 'Credenciales incorrectas' );
     }
