@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login, Register } from '../pages/auth';
 import { AdminRoutes } from './AdminRoutes';
+import { UsuarioRoutes } from './UsuarioRoutes';
 
 export const AppRouter = () => {
   return (
@@ -13,6 +14,7 @@ export const AppRouter = () => {
 
       {/* Vistas de administrador */ }
       <Route path="/admin/*" element={ <AdminRoutes /> } />
+      <Route path="/usuario/*" element={ <UsuarioRoutes /> } />
 
       <Route path="/*" element={ <Navigate to="/login" /> } />
 
