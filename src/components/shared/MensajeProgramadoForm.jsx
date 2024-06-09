@@ -17,7 +17,7 @@ export const MensajeProgramadoForm = () => {
   return (
     <>
       <Grid item xs={ 12 }>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={ { bgcolor: 'white' } }>
           <InputLabel id="demo-simple-select-label">Selecciona los días</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -36,6 +36,7 @@ export const MensajeProgramadoForm = () => {
       </Grid>
       <Grid item xs={ 12 }>
         <RelojCustom label={ "inicio" } value={ horaInicio } setValue={ setHoraInicio } />
+
       </Grid>
       <Grid item xs={ 12 }>
         <RelojCustom label={ "fin" } value={ horaFin } setValue={ setHoraFin } />

@@ -20,6 +20,7 @@ export const RelojCustom = ( { label, value, setValue } ) => {
           label={ `Selecciona la hora de ${ label }` }
           value={ value }
           onChange={ handleChangeValue }
+          sx={ { bgcolor: 'white' } }
         />
       </DemoContainer>
     </LocalizationProvider>
