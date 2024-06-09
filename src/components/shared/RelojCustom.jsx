@@ -5,11 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export const RelojCustom = ( { label, value, setValue } ) => {
 
-
-
   const handleChangeValue = ( newValue ) => {
-    const formattedTime = newValue.format( 'HH:mm' );
-    console.log( formattedTime );
     setValue( newValue );
   };
 

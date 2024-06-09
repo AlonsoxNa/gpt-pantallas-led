@@ -107,8 +107,6 @@ export const Login = () => {
             { ...register( 'password', {
               required: "La contraseña es requerida",
             } ) }
-            // onChange={ handleChange }
-            // onBlur={ ( e ) => handleValidate( e.target.name ) }
             fullWidth
           />
         </Grid>

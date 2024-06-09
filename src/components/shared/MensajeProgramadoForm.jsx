@@ -1,14 +1,10 @@
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
-import { useState } from 'react';
 import { RelojCustom } from './RelojCustom';
-import dayjs from 'dayjs';
+import { useMensajeStore } from '../../store/mensaje.store';
 
 export const MensajeProgramadoForm = () => {
 
-  const [ dias, setDias ] = useState( "Todos los días" );
-
-  const [ horaInicio, setHoraInicio ] = useState( dayjs( '2024-06-08T12:00' ) );
-  const [ horaFin, setHoraFin ] = useState( dayjs( '2024-06-08T12:00' ) );
+  const { data, setDias, setHoraInicio, setHoraFin } = useMensajeStore();
 
   const handleChangeDias = ( e ) => {
     setDias( e.target.value );
@@ -22,9 +18,9 @@ export const MensajeProgramadoForm = () => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={ dias }
+            value={ data.dias }
             label="Selecciona los días"
-            defaultValue="Todos los días"
+            defaultValue={ data.dias }
             onChange={ handleChangeDias }
           >
             <MenuItem value={ "Todos los días" }>Todos los días</MenuItem>
@@ -35,11 +31,10 @@ export const MensajeProgramadoForm = () => {
 
       </Grid>
       <Grid item xs={ 12 }>
-        <RelojCustom label={ "inicio" } value={ horaInicio } setValue={ setHoraInicio } />
-
+        <RelojCustom label={ "inicio" } value={ data.horaInicio } setValue={ setHoraInicio } />
       </Grid>
       <Grid item xs={ 12 }>
-        <RelojCustom label={ "fin" } value={ horaFin } setValue={ setHoraFin } />
+        <RelojCustom label={ "fin" } value={ data.horaFin } setValue={ setHoraFin } />
       </Grid>
     </>
   );

@@ -1,24 +1,22 @@
-import { Grid, TextField, Typography, Checkbox, FormControlLabel, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import { MensajeProgramadoForm } from '../../components/shared/MensajeProgramadoForm';
 import { animaciones } from '../../assets/data/animaciones';
+import { MensajeProgramadoForm } from '../../components/shared/MensajeProgramadoForm';
+import { useMensajeStore } from '../../store/mensaje.store';
 
 export const CambiarMensajePantalla = () => {
 
   const location = useLocation();
   const pantalla = location.state.pantalla;
 
-  const [ animacion, setAnimacion ] = useState( "" );
-
-  const [ checked, setChecked ] = useState( false );
-
-  const handleChangeTipoMensaje = ( event ) => {
-    setChecked( event.target.checked );
-  };
+  const { data, setMensaje, setAnimacion: onChangeAnimacion, setProgramado } = useMensajeStore();
 
   const handleChangeAnimacion = ( event ) => {
-    setAnimacion( event.target.value );
+    onChangeAnimacion( event.target.value );
+  };
+
+  const handleChangeMensaje = () => {
+    console.log( data );
   };
 
   return (
@@ -31,16 +29,18 @@ export const CambiarMensajePantalla = () => {
           <TextField
             variant="outlined"
             multiline
-            rows={ 8 }
+            rows={ 6 }
             fullWidth
-            defaultValue={ pantalla.mensaje }
+            value={ data.mensaje }
+            placeholder="Ingresa tu mensaje..."
+            onChange={ setMensaje }
             sx={ { bgcolor: 'white' } }
           />
         </Grid>
         <Grid item xs={ 12 }>
           <FormControlLabel
             control={
-              <Checkbox checked={ checked } onChange={ handleChangeTipoMensaje } />
+              <Checkbox checked={ data.programado } onChange={ setProgramado } />
             }
             label="Programar mensaje"
           />
@@ -51,9 +51,10 @@ export const CambiarMensajePantalla = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={ animacion }
+              value={ data.animacion }
               label="Selecciona animación"
               onChange={ handleChangeAnimacion }
+              defaultValue={ data.animacion }
             >
               { animaciones.map( ( animacion ) => (
                 <MenuItem key={ animacion.id } value={ animacion.id }>{ animacion.nombre }</MenuItem>
@@ -61,13 +62,13 @@ export const CambiarMensajePantalla = () => {
             </Select>
           </FormControl>
         </Grid>
-        { checked && (
+        { data.programado && (
           <MensajeProgramadoForm />
         ) }
 
         <Grid item xs={ 12 }>
           <Grid container justifyContent="center">
-            <Button variant="contained" color="primary" sx={ { textTransform: 'none' } }>Agregar mensaje</Button>
+            <Button variant="contained" color="primary" sx={ { textTransform: 'none' } } onClick={ handleChangeMensaje } >Agregar mensaje</Button>
           </Grid>
         </Grid>
       </Grid>
