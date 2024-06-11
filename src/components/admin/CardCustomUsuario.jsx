@@ -11,18 +11,18 @@ export const CardCustomUsuario = ( { usuario } ) => {
   };
 
   return (
-    <Card sx={ { minWidth: 275, mt: 2 } } >
+    <Card sx={ { minWidth: 275, mt: 4, boxShadow: `0 0 10px #3f78e9` } } >
       <CardContent>
         <Typography variant="h5" component="h5" textAlign="center" sx={ { my: 1 } }>
           { usuario.nombre }
         </Typography>
       </CardContent>
-      <CardActions sx={ { justifyContent: 'space-around', gap: 4 } }>
+      <CardActions sx={ { justifyContent: 'space-evenly', gap: 4 } }>
         <Button
           variant="contained"
           size="medium"
           color={ usuario.habilitado ? "habilitado" : "deshabilitado" }
-          sx={ { textTransform: 'none' } }
+          sx={ { textTransform: 'none', marginBottom: '24px' } }
         >
           { usuario.habilitado ? 'Habilitado' : 'Deshabilitado' }
         </Button>
@@ -30,7 +30,7 @@ export const CardCustomUsuario = ( { usuario } ) => {
           variant="contained"
           size="medium"
           color="tagSala"
-          sx={ { textTransform: 'none' } }
+          sx={ { textTransform: 'none', marginBottom: '24px' } }
           onClick={ onClickUser }
         >
           { usuario.cantidadPantallas } pantallas

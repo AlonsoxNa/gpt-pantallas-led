@@ -8,7 +8,7 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
   };
 
   return (
-    <Card sx={ { minWidth: 275, mt: 4 } }>
+    <Card sx={ { minWidth: 275, mt: 4, boxShadow: `0 0 10px #ffffff`} }>
       <CardContent>
         <Typography variant="h5" component="h6" textAlign="center">
           Mensaje activo:
@@ -18,12 +18,12 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           { pantalla.mensaje }
         </Typography>
       </CardContent>
-      <CardActions sx={ { justifyContent: 'space-around', gap: 4 } }>
+      <CardActions sx={ { justifyContent: 'space-evenly', gap: 4 } }>
         <Button
           variant="contained"
           size="medium"
           color="tagEdificio"
-          sx={ { textTransform: 'none' } }
+          sx={ { textTransform: 'none', marginBottom: '24px' } }
         >
           { pantalla.ubicacion }
         </Button>
@@ -31,11 +31,11 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           variant="contained"
           size="medium"
           color="tagSala"
-          sx={ { textTransform: 'none' } }
+          sx={ { textTransform: 'none', marginBottom: '24px' } }
         >
           { pantalla.sala }
         </Button>
-        <IconButton onClick={ onClickIcono } >
+        <IconButton onClick={ onClickIcono } sx={{marginBottom: '24px'}}>
           { icono }
         </IconButton>
       </CardActions>

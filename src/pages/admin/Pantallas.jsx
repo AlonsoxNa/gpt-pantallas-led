@@ -13,16 +13,16 @@ export const Pantallas = () => {
 
   return (
     <Grid container spacing={3} sx={{ p: 3 }}>
-      <Grid item xs={12} container justifyContent="space-between" alignItems="center">
+      <Grid item xs={12} container justifyContent="space-between" alignItems="center" sx={{ marginBottom: '32px' }}>
         <Typography variant="h4">Pantallas</Typography>
-        <Button variant="contained" startIcon={<AddCircleIcon />} sx={{ textTransform: 'none', fontWeight: 400 }}>
+        <Button variant="contained" startIcon={<AddCircleIcon />}>
           Agregar
         </Button>
       </Grid>
-      <Grid item xs={12} container spacing={2}>
+      <Grid item xs={12} container spacing={2} sx={{ marginBottom: '30px' }}>
         {pantallas.map((pantalla) => (
           <Grid item xs={12} key={pantalla.id}>
-            <Paper elevation={3} sx={{ p: 2, marginBottom: '16px' }}>
+            <Paper elevation={3} sx={{ p: 2, boxShadow: `0 0 10px #3f78e9` }}>
               <CardCustomPantalla pantalla={pantalla} accionIcono={onEditPantalla} />
             </Paper>
           </Grid>
