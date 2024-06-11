@@ -10,7 +10,10 @@ export const login = async ({email, password}) => {
     });
 
     if (response.status === 200) {
-      return {success: true, data: response.data};
+      return {success: true, data: {
+        nombre: response.data.nombre,
+        token: response.data.token,
+      }};
     }
     return {success: false, message: response.data.message};
 

@@ -48,7 +48,7 @@ export const Login = () => {
     console.log("Response:",response);
     if ( response.success ) {
       // navigate('/feed');
-      handleLogin( data.email, response.data);
+      handleLogin( response.data.nombre, data.email, response.data.token);
       navigate( '/admin/pantallas' );
     } else {
       setMsgAlert( 'Credenciales incorrectas' );

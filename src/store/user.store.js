@@ -5,17 +5,20 @@ export const useUserStore = create(
   persist(
     ( set ) => ( {
       user: {
+        name: '',
         email: '',
         token: '',
       },
-      handleLogin: ( email, token) => set(({
+      handleLogin: ( name, email, token) => set(({
         user: {
+          name,
           email,
           token
         }
       })),
       handleLogout: () => set(({
         user: {
+          name: '',
           email: '',
           token: ''
         }
