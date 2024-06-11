@@ -12,7 +12,8 @@ import { useUserStore } from '../../store/user.store';
 
 export const Navbar = () => {
 
-  const user = useUserStore((state) => state.user);
+  const user = useUserStore( ( state ) => state.user );
+  const handleLogout = useUserStore( ( state ) => state.handleLogout );
 
   const navigate = useNavigate();
 
@@ -31,6 +32,11 @@ export const Navbar = () => {
 
   const handleClose = () => {
     setAnchorEl( null );
+  };
+
+  const onLogout = () => {
+    handleLogout();
+    navigate( '/login' );
   };
 
   const handleGoToPantallas = () => {
@@ -59,7 +65,7 @@ export const Navbar = () => {
             <IconButton sx={ { color: 'white' } } onClick={ handleClick }>
               <PersonIcon fontSize="large" />
             </IconButton>
-            <Typography sx={ { my: 'auto' } } onClick={ handleClick }>{user.name.split(" ")[0]}</Typography>
+            <Typography sx={ { my: 'auto' } } onClick={ handleClick }>{ user.name.split( " " )[ 0 ] }</Typography>
             <Menu
               id="basic-menu"
               anchorEl={ anchorEl }
@@ -69,7 +75,7 @@ export const Navbar = () => {
                 'aria-labelledby': 'basic-button',
               } }
             >
-              <MenuItem onClick={ handleClose }>Cerrar sesión</MenuItem>
+              <MenuItem onClick={ onLogout }>Cerrar sesión</MenuItem>
             </Menu>
           </Grid>
         </Toolbar>
