@@ -1,7 +1,19 @@
-import { Button, Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, IconButton, Tooltip, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { limitarMaxString } from "../../utils/limitarMaxString";
+import { useState } from 'react';
 
 export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medium" />, accionIcono } ) => {
+
+  const [ openSala, setOpenSala ] = useState( false );
+
+  const onClickNombreSala = () => {
+    setOpenSala( true );
+  };
+
+  const onCloseNombreSala = () => {
+    setOpenSala( false );
+  };
 
   const onClickIcono = () => {
     accionIcono( pantalla );
@@ -15,7 +27,7 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
         </Typography>
 
         <Typography variant="body1" component="p" textAlign="center" sx={ { my: 1 } }>
-          { pantalla.mensaje }
+          { pantalla.mensajeActual.split( "&" )[ 0 ] }
         </Typography>
       </CardContent>
       <CardActions sx={ { justifyContent: 'space-around', gap: 4 } }>
@@ -25,7 +37,7 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           color="tagEdificio"
           sx={ { textTransform: 'none' } }
         >
-          { pantalla.ubicacion }
+          { pantalla.habilitada ? 'Habilitada' : 'Deshabilitada' }
         </Button>
         <Button
           variant="contained"
@@ -33,7 +45,11 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           color="tagSala"
           sx={ { textTransform: 'none' } }
         >
-          { pantalla.sala }
+          <Tooltip title={ pantalla.nombre } open={ openSala } onClick={ onClickNombreSala } onClose={ onCloseNombreSala }>
+            <Typography variant="body2" component="p">
+              { limitarMaxString( pantalla.nombre ) }
+            </Typography>
+          </Tooltip>
         </Button>
         <IconButton onClick={ onClickIcono } >
           { icono }

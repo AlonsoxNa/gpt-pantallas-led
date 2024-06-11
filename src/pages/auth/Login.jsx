@@ -45,9 +45,7 @@ export const Login = () => {
 
     const response = await login( data );
 
-    console.log("Response:",response);
     if ( response.success ) {
-      // navigate('/feed');
       handleLogin( response.data.nombre, data.email, response.data.token);
       navigate( '/admin/pantallas' );
     } else {

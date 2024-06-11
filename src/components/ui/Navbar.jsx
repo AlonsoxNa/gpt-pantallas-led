@@ -8,8 +8,11 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../store/user.store';
 
 export const Navbar = () => {
+
+  const user = useUserStore((state) => state.user);
 
   const navigate = useNavigate();
 
@@ -56,7 +59,7 @@ export const Navbar = () => {
             <IconButton sx={ { color: 'white' } } onClick={ handleClick }>
               <PersonIcon fontSize="large" />
             </IconButton>
-            <Typography sx={ { my: 'auto' } } onClick={ handleClick }>Luis</Typography>
+            <Typography sx={ { my: 'auto' } } onClick={ handleClick }>{user.name.split(" ")[0]}</Typography>
             <Menu
               id="basic-menu"
               anchorEl={ anchorEl }
