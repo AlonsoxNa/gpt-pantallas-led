@@ -24,7 +24,7 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           size="medium"
           color="tagEdificio"
           sx={ { textTransform: 'none', marginBottom: '24px' } }
-          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem',width: '150px'}}
+          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem',width: '150px',fontWeight: 'bold'}}
         >
           { pantalla.ubicacion }
         </Button>
@@ -33,7 +33,7 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           size="medium"
           color="tagSala"
           sx={ { textTransform: 'none', marginBottom: '24px' } }
-          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem', width: '150px'}}
+          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem', width: '150px',fontWeight: 'bold'}}
         >
           { pantalla.sala }
         </Button>

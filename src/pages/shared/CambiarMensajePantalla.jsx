@@ -72,7 +72,11 @@ export const CambiarMensajePantalla = () => {
 
         <Grid item xs={ 12 }>
           <Grid container justifyContent="center">
-            <Button variant="contained" sx={ { textTransform: 'none' } } style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}} onClick={ handleChangeMensaje } >Agregar mensaje</Button>
+            <Button variant="contained"
+          size='large'
+          sx={{ py: 1, textTransform: 'none', color: '#FFFFFF' }}
+          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}} 
+          onClick={ handleChangeMensaje } >Agregar mensaje</Button>
           </Grid>
         </Grid>
       </Grid>

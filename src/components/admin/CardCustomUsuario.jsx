@@ -23,16 +23,16 @@ export const CardCustomUsuario = ( { usuario } ) => {
           size="medium"
           color={ usuario.habilitado ? "habilitado" : "deshabilitado" }
           sx={ { textTransform: 'none', marginBottom: '24px' } }
-          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem',width: '150px'}}
+          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem',width: '150px', fontWeight: 'bold'}}
         >
           { usuario.habilitado ? 'Habilitado' : 'Deshabilitado' }
         </Button>
         <Button
           variant="contained"
-          size="medium"
+          size="large"
           color="tagSala"
           sx={ { textTransform: 'none', marginBottom: '24px' } }
-          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem',width: '150px'}}
+          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem',width: '150px',fontWeight: 'bold'}}
           onClick={ onClickUser }
         >
           { usuario.cantidadPantallas } pantallas

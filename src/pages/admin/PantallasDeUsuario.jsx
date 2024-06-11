@@ -18,7 +18,11 @@ export const PantallasDeUsuario = () => {
     <Grid container spacing={3} sx={{ p: 3 }}>
       <Grid item xs={12} container justifyContent="space-between" alignItems="center">
           <Typography variant="h4" style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' }}>Pantallas asociadas a { usuario.nombre }</Typography>
-          <Button variant="contained" startIcon={ <AddLinkIcon /> } style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}}>
+          <Button variant="contained"
+          size='large'
+          sx={{ py: 1, textTransform: 'none', color: '#FFFFFF', marginTop: '24px'}}
+          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}} 
+          startIcon={ <AddLinkIcon /> }>
             Asociar
           </Button>
       </Grid>

@@ -15,7 +15,11 @@ export const Pantallas = () => {
     <Grid container spacing={3} sx={{ p: 3 }}>
       <Grid item xs={12} container justifyContent="space-between" alignItems="center">
         <Typography variant="h4" style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' }}>Pantallas</Typography>
-        <Button variant="contained" startIcon={<AddCircleIcon />} style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}}>
+        <Button variant="contained"
+          size='large'
+          sx={{ py: 1, textTransform: 'none', color: '#FFFFFF' }}
+          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}} 
+          startIcon={<AddCircleIcon />}>
           Agregar
         </Button>
       </Grid>
