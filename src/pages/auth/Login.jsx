@@ -6,8 +6,11 @@ import { login } from '../../services/authService';
 import { CustomProgress } from '../../components/ui/CustomProgress';
 import { CustomAlert } from '../../components/ui/CustomAlert';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../store/user.store';
 
 export const Login = () => {
+
+  const handleLogin = useUserStore( state => state.handleLogin );
 
   const [ isOpen, setIsOpen ] = useState( false );
   const navigate = useNavigate();
@@ -38,13 +41,14 @@ export const Login = () => {
   };
 
   const onSubmit = async ( data ) => {
-    // setIsOpen( true );
+    setIsOpen( true );
 
-    // const response = await login( data );
+    const response = await login( data );
 
-    // if ( response.success ) {
-    if ( true ) {
+    console.log("Response:",response);
+    if ( response.success ) {
       // navigate('/feed');
+      handleLogin( data.email, response.data);
       navigate( '/admin/pantallas' );
     } else {
       setMsgAlert( 'Credenciales incorrectas' );

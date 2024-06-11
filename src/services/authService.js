@@ -3,9 +3,11 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const login = async ({email, password}) => {
-  console.log(BASE_URL)
   try {
-    const response = await axios.post(`${BASE_URL}/auth/login`, {email, password});
+    const response = await axios.post(`${BASE_URL}/identidad/login`, {
+      email, 
+      contrasena: password
+    });
 
     if (response.status === 200) {
       return {success: true, data: response.data};
