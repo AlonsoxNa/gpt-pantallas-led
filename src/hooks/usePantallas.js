@@ -12,7 +12,6 @@ export const usePantallas = () => {
 
     const response = await obtenerPantallasApi();
     setPantallas(response.data);
-    console.log(response);
     
     setIsLoading(false);
   };
