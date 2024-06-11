@@ -11,18 +11,19 @@ export const CardCustomUsuario = ( { usuario } ) => {
   };
 
   return (
-    <Card sx={ { minWidth: 275, mt: 4, boxShadow: `0 0 10px #3f78e9` } } >
+    <Card sx={ { minWidth: 275, mt: 4, boxShadow: `0 0 30px #3f78e9` } } >
       <CardContent>
-        <Typography variant="h5" component="h5" textAlign="center" sx={ { my: 1 } }>
+        <Typography variant="h5" component="h5" textAlign="center" sx={ { my: 1 } } style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1.5rem'}}>
           { usuario.nombre }
         </Typography>
       </CardContent>
-      <CardActions sx={ { justifyContent: 'space-evenly', gap: 4 } }>
+      <CardActions sx={ { justifyContent: 'center', gap: 4 } }>
         <Button
           variant="contained"
           size="medium"
           color={ usuario.habilitado ? "habilitado" : "deshabilitado" }
           sx={ { textTransform: 'none', marginBottom: '24px' } }
+          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem',width: '150px'}}
         >
           { usuario.habilitado ? 'Habilitado' : 'Deshabilitado' }
         </Button>
@@ -31,11 +32,12 @@ export const CardCustomUsuario = ( { usuario } ) => {
           size="medium"
           color="tagSala"
           sx={ { textTransform: 'none', marginBottom: '24px' } }
+          style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem',width: '150px'}}
           onClick={ onClickUser }
         >
           { usuario.cantidadPantallas } pantallas
         </Button>
-        <IconButton >
+        <IconButton sx={{marginBottom: '24px'}} >
           <EditIcon />
         </IconButton>
       </CardActions>

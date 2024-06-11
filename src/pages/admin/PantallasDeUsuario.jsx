@@ -15,25 +15,20 @@ export const PantallasDeUsuario = () => {
   };
 
   return (
-    <>
-      <Grid container justifyContent="space-between" alignItems="center">
-        <Grid item xs={ 8 }>
-          <Typography variant="h4">Pantallas asociadas a { usuario.nombre }</Typography>
-        </Grid>
-        <Grid item xs={ 4 }>
-          <Button variant="contained" startIcon={ <AddLinkIcon /> }>
+    <Grid container spacing={3} sx={{ p: 3 }}>
+      <Grid item xs={12} container justifyContent="space-between" alignItems="center">
+          <Typography variant="h4" style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' }}>Pantallas asociadas a { usuario.nombre }</Typography>
+          <Button variant="contained" startIcon={ <AddLinkIcon /> } style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}}>
             Asociar
           </Button>
-        </Grid>
       </Grid>
-      <Grid container>
+      <Grid item xs={12} container spacing={2} sx={{ marginBottom: '30px' }}>
         { pantallasUsuario.map( ( pantalla ) => (
           <Grid item xs={ 12 } key={ pantalla.id }>
             <CardCustomPantalla pantalla={ pantalla.pantalla } icono={ <LinkOffIcon fontSize="large" /> } accionIcono={ onDesasociarPantalla } />
           </Grid>
         ) ) }
-
       </Grid>
-    </>
+    </Grid>
   );
 };

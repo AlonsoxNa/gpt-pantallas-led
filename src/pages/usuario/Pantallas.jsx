@@ -13,21 +13,20 @@ export const Pantallas = () => {
   };
 
   return (
-    <>
-      <Grid container justifyContent="space-between">
-        <Typography variant="h4">Pantallas</Typography>
-        <Button variant="contained" startIcon={ <AddCircleIcon /> }>
+    <Grid container spacing={3} sx={{ p: 3 }}>
+      <Grid item xs={12} container justifyContent="space-between" alignItems="center">
+        <Typography variant="h4" style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' }}>Pantallas</Typography>
+        <Button variant="contained" startIcon={ <AddCircleIcon /> } style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}}>
           Agregar
         </Button>
       </Grid>
-      <Grid container>
+      <Grid item xs={12} container spacing={2} sx={{ marginBottom: '30px' }}>
         { pantallas.map( ( pantalla ) => (
           <Grid item xs={ 12 } key={ pantalla.id }>
-            <CardCustomPantalla pantalla={ pantalla } accionIcono={ onEditPantalla } />
+              <CardCustomPantalla pantalla={ pantalla } accionIcono={ onEditPantalla } />
           </Grid>
         ) ) }
-
       </Grid>
-    </>
+    </Grid>
   );
 };

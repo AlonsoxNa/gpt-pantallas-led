@@ -23,7 +23,7 @@ export const CambiarMensajePantalla = () => {
     <>
       <Grid container gap={ 4 }>
         <Grid item xs={ 12 }>
-          <Typography variant="h4" textAlign="center" component="h4">Pantalla <br /> { pantalla.ubicacion } - { pantalla.sala }</Typography>
+          <Typography variant="h4" textAlign="center" component="h4" style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' }}>Pantalla <br /> { pantalla.ubicacion } - { pantalla.sala }</Typography>
         </Grid>
         <Grid item xs={ 12 }>
           <TextField
@@ -72,7 +72,7 @@ export const CambiarMensajePantalla = () => {
 
         <Grid item xs={ 12 }>
           <Grid container justifyContent="center">
-            <Button variant="contained" color="primary" sx={ { textTransform: 'none' } } onClick={ handleChangeMensaje } >Agregar mensaje</Button>
+            <Button variant="contained" sx={ { textTransform: 'none' } } style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}} onClick={ handleChangeMensaje } >Agregar mensaje</Button>
           </Grid>
         </Grid>
       </Grid>

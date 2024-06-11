@@ -50,21 +50,22 @@ export const Login = () => {
         minHeight="100vh"
         alignItems="center"
         justifyContent="center"
-        sx={{ backgroundColor: '#e0e0e0' }}
+        sx={{ backgroundColor: '#ffffff' }}
+
       >
-        <Paper elevation={10} sx={{ padding: 4, borderRadius: 2, width: '90%', maxWidth: 400, backgroundColor: "#d8e9fb" }}> 
+        <Paper elevation={10} sx={{ padding: 4, borderRadius: 2, width: '90%', maxWidth: 400, backgroundColor: "#d8e9fb", boxShadow: `0 0 100px #3f78e9`}}> 
           <Grid container spacing={2} justifyContent="center">
             <Grid item>
             <Avatar
               src="https://ferretronica.com/cdn/shop/collections/Elementos_de_visualizacion_pantallas_lcd_display_7_segmentos_matrices_led_modulos_de_visualizacion_led_ferretronica_512x512.png?v=1537792596"
-              sx={{ width: 200, height: 200 }}
+              sx={{ width: 170, height: 170 }}
             />
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="h5" fontWeight={500} textAlign="center">
+              <Typography variant="h5" style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' }} textAlign="center">
                 Anuncios LED
               </Typography>
-              <Typography variant="h5" fontWeight={500} textAlign="center">
+              <Typography variant="h5" style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' }} textAlign="center">
                 UTALCA
               </Typography>
             </Grid>
@@ -113,7 +114,8 @@ export const Login = () => {
                 variant="contained"
                 fullWidth
                 size='large'
-                sx={{ py: 1, textTransform: 'none', fontWeight: 600, mt: 2, backgroundColor: '#1976d2', color: '#FFFFFF' }}
+                sx={{ py: 1, textTransform: 'none', fontWeight: 600, mt: 2, color: '#FFFFFF' }}
+                style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}}
                 onClick={handleSubmit(onSubmit)}
               >
                 Iniciar sesión

@@ -5,14 +5,14 @@ import { CardCustomUsuario } from '../../components/admin/CardCustomUsuario';
 
 export const Usuarios = () => {
   return (
-    <>
-      <Grid container justifyContent="space-between">
-        <Typography variant="h4">Usuarios</Typography>
-        <Button variant="contained" startIcon={ <AddCircleIcon /> }>
+    <Grid container spacing={3} sx={{ p: 3 }}>
+      <Grid item xs={12} container justifyContent="space-between" alignItems="center">
+        <Typography variant="h4" style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' }}>Usuarios</Typography>
+        <Button variant="contained" startIcon={ <AddCircleIcon /> } style={{ fontFamily: '"Tahoma", sans-serif', fontSize: '1rem'}}>
           Agregar
         </Button>
       </Grid>
-      <Grid container>
+      <Grid item xs={12} container spacing={2} sx={{ marginBottom: '30px' }}>
         { usuarios.map( ( usuario ) => (
           <Grid item xs={ 12 } key={ usuario.id } >
             <CardCustomUsuario usuario={ usuario } />
@@ -20,6 +20,6 @@ export const Usuarios = () => {
         ) ) }
 
       </Grid>
-    </>
+    </Grid>
   );
 };
