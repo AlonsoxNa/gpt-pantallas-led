@@ -29,14 +29,13 @@ export const PantallasDeUsuario = () => {
             Asociar
           </Button>
         </Grid>
-      </Grid>
-      <Grid container>
-        { pantallasUsuario.map( ( pantalla, index ) => (
-          <Grid item xs={ 12 } key={ index }>
-            <CardCustomPantalla pantalla={ pantalla.pantalla } icono={ <LinkOffIcon fontSize="large" /> } accionIcono={ onDesasociarPantalla } />
-          </Grid>
-        ) ) }
-
+        <Grid container>
+          { pantallasUsuario.map( ( pantalla, index ) => (
+            <Grid item xs={ 12 } key={ index }>
+              <CardCustomPantalla pantalla={ pantalla.pantalla } icono={ <LinkOffIcon fontSize="large" /> } accionIcono={ onDesasociarPantalla } />
+            </Grid>
+          ) ) }
+        </Grid>
       </Grid>
     </>
   );

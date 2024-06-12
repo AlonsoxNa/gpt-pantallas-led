@@ -29,7 +29,6 @@ export const Pantallas = () => {
             <CardCustomPantalla pantalla={ pantalla.pantalla } accionIcono={ onEditPantalla } />
           </Grid>
         ) ) }
-
       </Grid>
     </>
   );

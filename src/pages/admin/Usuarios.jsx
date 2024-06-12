@@ -17,9 +17,9 @@ export const Usuarios = () => {
           Agregar
         </Button>
       </Grid>
-      <Grid container>
+      <Grid item xs={ 12 } container spacing={ 2 } sx={ { marginBottom: '30px' } }>
         { usuarios.map( ( usuario ) => (
-          <Grid item xs={ 12 } key={ usuario.id }>
+          <Grid item xs={ 12 } key={ usuario.id } >
             <CardCustomUsuario usuario={ usuario } />
           </Grid>
         ) ) }

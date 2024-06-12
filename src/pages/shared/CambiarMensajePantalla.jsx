@@ -74,7 +74,12 @@ export const CambiarMensajePantalla = () => {
             value={ data.mensaje }
             placeholder="Ingresa tu mensaje..."
             onChange={ setMensaje }
-            sx={ { bgcolor: 'white' } }
+            sx={ {
+              bgcolor: 'white', borderColor: '#3f78e9',
+              borderWidth: '2px',
+              borderStyle: 'solid',
+              borderRadius: '5px',
+            } }
           />
         </Grid>
         <Grid item xs={ 12 }>
@@ -95,6 +100,7 @@ export const CambiarMensajePantalla = () => {
               label="Selecciona animación"
               onChange={ handleChangeAnimacion }
               defaultValue={ data.animacion }
+
             >
               { animaciones.map( ( animacion ) => (
                 <MenuItem key={ animacion.id } value={ animacion.id }>{ animacion.nombre }</MenuItem>
@@ -108,7 +114,11 @@ export const CambiarMensajePantalla = () => {
 
         <Grid item xs={ 12 }>
           <Grid container justifyContent="center">
-            <Button variant="contained" color="primary" sx={ { textTransform: 'none' } } onClick={ handleChangeMensaje } >Agregar mensaje</Button>
+            <Button variant="contained"
+              size='large'
+              sx={ { py: 1, textTransform: 'none', color: '#FFFFFF' } }
+              style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '1rem' } }
+              onClick={ handleChangeMensaje } >Agregar mensaje</Button>
           </Grid>
         </Grid>
       </Grid>
