@@ -1,12 +1,13 @@
 import { Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { animaciones } from '../../assets/data/animaciones';
 import { MensajeProgramadoForm } from '../../components/shared/MensajeProgramadoForm';
-import { useMensajeStore } from '../../store/mensaje.store';
-import { enviarMensajeDefecto } from '../../services/pantallasService';
-import { useState } from 'react';
 import { CustomAlert } from '../../components/ui/CustomAlert';
 import { CustomProgress } from '../../components/ui/CustomProgress';
+import { enviarMensajeDefecto } from '../../services/pantallasService';
+import { useMensajeStore } from '../../store/mensaje.store';
+import { validarCampos } from '../../utils/validarCamposMensaje';
 
 export const CambiarMensajePantalla = () => {
 
@@ -32,6 +33,16 @@ export const CambiarMensajePantalla = () => {
 
   const handleChangeMensaje = async () => {
     setIsLoading( true );
+
+    const error = validarCampos( data );
+
+    if ( error.length > 0 ) {
+      setMsgAlert( error );
+      setTipoMensaje( 'error' );
+      setIsOpenAlert( true );
+      setIsLoading( false );
+      return;
+    }
 
     if ( !data.programado ) {
 
@@ -103,6 +114,7 @@ export const CambiarMensajePantalla = () => {
       </Grid>
       <CustomAlert handleClose={ handleCloseAlert } mensaje={ msgAlert } tipoMensaje={ tipoMensaje } open={ isOpenAlert } />
       <CustomProgress open={ isLoading } />
+
     </>
   );
 };
