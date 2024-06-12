@@ -13,6 +13,7 @@ export const login = async ({email, password}) => {
       return {success: true, data: {
         nombre: response.data.nombre,
         token: response.data.token,
+        id: response.data.id
       }};
     }
     return {success: false, message: response.data.message};

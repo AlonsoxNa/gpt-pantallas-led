@@ -47,7 +47,7 @@ export const Login = () => {
     const response = await login( data );
 
     if ( response.success ) {
-      handleLogin( response.data.nombre, data.email, response.data.token );
+      handleLogin( response.data.id, response.data.nombre, data.email, response.data.token );
 
       const rolUsuario = decodeRol( response.data.token );
 
