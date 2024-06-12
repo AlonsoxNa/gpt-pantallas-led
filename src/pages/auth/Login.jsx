@@ -7,6 +7,7 @@ import { CustomProgress } from '../../components/ui/CustomProgress';
 import { CustomAlert } from '../../components/ui/CustomAlert';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store/user.store';
+import { decodeRol } from '../../utils/rolFromToken';
 
 export const Login = () => {
 
@@ -46,8 +47,16 @@ export const Login = () => {
     const response = await login( data );
 
     if ( response.success ) {
-      handleLogin( response.data.nombre, data.email, response.data.token);
-      navigate( '/admin/pantallas' );
+      handleLogin( response.data.nombre, data.email, response.data.token );
+
+      const rolUsuario = decodeRol( response.data.token );
+
+      if ( rolUsuario === 'usuario' ) {
+        navigate( '/usuario/pantallas' );
+      } else if ( rolUsuario === 'administrador' ) {
+        navigate( '/admin/pantallas' );
+      }
+      return;
     } else {
       setMsgAlert( 'Credenciales incorrectas' );
     }
