@@ -10,6 +10,11 @@ import { useUserStore } from '../../store/user.store';
 import { decodeRol } from '../../utils/rolFromToken';
 
 export const Login = () => {
+
+  const navigate = useNavigate();
+
+  const handleLogin = useUserStore( ( state ) => state.handleLogin );
+
   const [ isOpen, setIsOpen ] = useState( false );
   const [ isOpenAlert, setIsOpenAlert ] = useState( false );
   const [ msgAlert, setMsgAlert ] = useState( '' );
@@ -61,10 +66,17 @@ export const Login = () => {
       minHeight="100vh"
       alignItems="center"
       justifyContent="center"
-      sx={ { backgroundColor: '#ffffff' } }
+      sx={ { backgroundColor: 'primary.secondary' } }
 
     >
-      <Paper elevation={ 10 } sx={ { padding: 4, borderRadius: 2, width: '90%', maxWidth: 400, backgroundColor: "#d8e9fb", boxShadow: `0 0 100px #3f78e9` } }>
+      <Paper elevation={ 10 } sx={ {
+        padding: 4,
+        borderRadius: 2,
+        width: '90%',
+        maxWidth: 400,
+        backgroundColor: "#fff",
+        boxShadow: 3
+      } }>
         <Grid container spacing={ 2 } justifyContent="center">
           <Grid item>
             <Avatar

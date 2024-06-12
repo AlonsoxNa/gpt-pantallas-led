@@ -11,7 +11,7 @@ export const CardCustomUsuario = ( { usuario } ) => {
   };
 
   return (
-    <Card sx={ { minWidth: 275, mt: 4, boxShadow: `0 0 30px #3f78e9` } } >
+    <Card sx={ { minWidth: 275, mt: 4, boxShadow: 3 } } >
       <CardContent>
         <Typography variant="h5" component="h5" textAlign="center" sx={ { my: 1 } }>
           { usuario.nombreCompleto }
@@ -23,7 +23,6 @@ export const CardCustomUsuario = ( { usuario } ) => {
           size="medium"
           color={ usuario.habilitado ? "habilitado" : "deshabilitado" }
           sx={ { textTransform: 'none', marginBottom: '24px' } }
-          style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '1rem', width: '150px', fontWeight: 'bold' } }
         >
           { usuario.habilitado ? 'Habilitado' : 'Deshabilitado' }
         </Button>
@@ -32,7 +31,6 @@ export const CardCustomUsuario = ( { usuario } ) => {
           size="large"
           color="tagSala"
           sx={ { textTransform: 'none', marginBottom: '24px' } }
-          style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '1rem', width: '150px', fontWeight: 'bold' } }
           onClick={ onClickUser }
         >
           { usuario.cantidadPantallas } pantallas

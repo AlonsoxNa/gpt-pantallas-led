@@ -1,9 +1,7 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Button, Grid, Typography, Paper } from '@mui/material';
-import { pantallas } from '../../assets/data/pantallas';
+import { Button, Grid, Typography } from '@mui/material';
 import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla';
 import { useNavigate } from 'react-router-dom';
-import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla';
 import { CustomProgress } from '../../components/ui/CustomProgress';
 import { usePantallas } from '../../hooks/usePantallas';
 
@@ -15,8 +13,6 @@ export const Pantallas = () => {
   const onEditPantalla = ( pantalla ) => {
     navigate( '/admin/cambiar-mensaje-pantalla', { state: { pantalla } } );
   };
-
-
 
   return (
     <>

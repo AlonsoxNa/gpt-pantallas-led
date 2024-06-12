@@ -20,9 +20,9 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
   };
 
   return (
-    <Card sx={ { minWidth: 275, mt: 4, boxShadow: `0 0 30px #3f78e9` } }>
+    <Card sx={ { minWidth: 275, mt: 4, boxShadow: 3 } }>
       <CardContent>
-        <Typography variant="h5" component="h6" textAlign="center" style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '1.5rem' } }>
+        <Typography variant="h5" component="h6" textAlign="center">
           Mensaje activo:
         </Typography>
 
@@ -36,7 +36,6 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           size="medium"
           color="tagEdificio"
           sx={ { textTransform: 'none', marginBottom: '24px' } }
-          style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '1rem', width: '150px', fontWeight: 'bold' } }
         >
           { pantalla.habilitada ? 'Habilitada' : 'Deshabilitada' }
         </Button>
@@ -45,7 +44,6 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           size="medium"
           color="tagSala"
           sx={ { textTransform: 'none', marginBottom: '24px' } }
-          style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '1rem', width: '150px', fontWeight: 'bold' } }
         >
           <Tooltip title={ pantalla.nombre } open={ openSala } onClick={ onClickNombreSala } onClose={ onCloseNombreSala }>
             <Typography variant="body2" component="p">
