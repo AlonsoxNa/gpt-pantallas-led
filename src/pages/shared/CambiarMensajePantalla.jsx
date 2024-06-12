@@ -23,7 +23,7 @@ export const CambiarMensajePantalla = () => {
     <>
       <Grid container gap={ 4 }>
         <Grid item xs={ 12 }>
-          <Typography variant="h4" textAlign="center" component="h4">Pantalla <br /> { pantalla.ubicacion } - { pantalla.sala }</Typography>
+          <Typography variant="h4" textAlign="center" component="h4">Pantalla: <br /> { pantalla.nombre } </Typography>
         </Grid>
         <Grid item xs={ 12 }>
           <TextField

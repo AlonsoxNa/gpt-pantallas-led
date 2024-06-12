@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Login, Register } from '../pages/auth';
 import { AdminRoutes } from './AdminRoutes';
 import { UsuarioRoutes } from './UsuarioRoutes';
+import { PrivateRoutesAdmin } from './PrivateRoutesAdmin';
 
 export const AppRouter = () => {
   return (
@@ -13,7 +14,11 @@ export const AppRouter = () => {
       <Route path="/register" element={ <Register /> } />
 
       {/* Vistas de administrador */ }
-      <Route path="/admin/*" element={ <AdminRoutes /> } />
+      <Route path="/admin/*" element={
+        <PrivateRoutesAdmin>
+          <AdminRoutes />
+        </PrivateRoutesAdmin>
+      } />
       <Route path="/usuario/*" element={ <UsuarioRoutes /> } />
 
       <Route path="/*" element={ <Navigate to="/login" /> } />
