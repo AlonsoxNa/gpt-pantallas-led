@@ -6,9 +6,13 @@ export const PrivateRoutesUsuario = ( { children } ) => {
 
   const user = useUserStore( ( state ) => state.user );
 
+  if ( !user.token ) {
+    return <Navigate to="/login" />;
+  }
+
   const rolUsuario = decodeRol( user.token );
 
-  if ( !user.token || rolUsuario !== 'usuario' ) {
+  if ( rolUsuario !== 'usuario' ) {
     return <Navigate to="/login" />;
   }
 

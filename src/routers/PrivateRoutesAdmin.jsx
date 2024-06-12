@@ -6,9 +6,13 @@ export const PrivateRoutesAdmin = ( { children } ) => {
 
   const user = useUserStore( ( state ) => state.user );
 
+  if ( !user.token ) {
+    return <Navigate to="/login" />;
+  }
+
   const rolUsuario = decodeRol( user.token );
 
-  if ( !user.token || rolUsuario !== 'administrador' ) {
+  if ( rolUsuario !== 'administrador' ) {
     return <Navigate to="/login" />;
   }
 
