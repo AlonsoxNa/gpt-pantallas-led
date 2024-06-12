@@ -16,11 +16,11 @@ export const obtenerPantallasApi = async () => {
   }
 }
 
-export const enviarMensajeDefecto = async (id, mensaje, animacion) => {
+export const enviarMensajeDefecto = async (id_pantalla, id_usuario, mensaje, animacion) => {
 
   try {
-    const response = await axios.patch(`${BASE_URL}/pantalla/enviar-mensaje`, {
-      id,
+    const response = await axios.patch(`${BASE_URL}/pantalla/enviar-mensaje?id=${id_usuario}`, {
+      id: id_pantalla,
       mensaje,
       animacion
     });

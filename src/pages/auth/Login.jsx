@@ -85,10 +85,10 @@ export const Login = () => {
             />
           </Grid>
           <Grid item xs={ 12 }>
-            <Typography variant="h5" style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' } } textAlign="center">
+            <Typography variant="h5" textAlign="center" fontWeight="bold" fontSize="2rem">
               Anuncios LED
             </Typography>
-            <Typography variant="h5" style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '2rem', fontWeight: 'bold' } } textAlign="center">
+            <Typography variant="h5" textAlign="center" fontWeight="bold" fontSize="2rem">
               UTALCA
             </Typography>
           </Grid>
@@ -137,8 +137,7 @@ export const Login = () => {
               variant="contained"
               fullWidth
               size='large'
-              sx={ { py: 1, textTransform: 'none', fontWeight: 600, mt: 2, color: '#FFFFFF' } }
-              style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '1rem' } }
+              sx={ { py: 1, textTransform: 'none', fontWeight: 600, fontSize: '1rem', mt: 2, color: '#FFFFFF' } }
               onClick={ handleSubmit( onSubmit ) }
             >
               Iniciar sesión

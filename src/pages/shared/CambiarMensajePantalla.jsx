@@ -8,11 +8,14 @@ import { CustomProgress } from '../../components/ui/CustomProgress';
 import { enviarMensajeDefecto } from '../../services/pantallasService';
 import { useMensajeStore } from '../../store/mensaje.store';
 import { validarCampos } from '../../utils/validarCamposMensaje';
+import { useUserStore } from '../../store/user.store';
 
 export const CambiarMensajePantalla = () => {
 
   const location = useLocation();
   const pantalla = location.state.pantalla;
+
+  const user = useUserStore( ( state ) => state.user );
 
   const [ isLoading, setIsLoading ] = useState( false );
 
@@ -46,7 +49,7 @@ export const CambiarMensajePantalla = () => {
 
     if ( !data.programado ) {
 
-      const response = await enviarMensajeDefecto( pantalla.id, data.mensaje, data.animacion );
+      const response = await enviarMensajeDefecto( pantalla.id, user.id, data.mensaje, data.animacion );
 
       if ( response.success ) {
         setTipoMensaje( 'success' );
@@ -116,8 +119,7 @@ export const CambiarMensajePantalla = () => {
           <Grid container justifyContent="center">
             <Button variant="contained"
               size='large'
-              sx={ { py: 1, textTransform: 'none', color: '#FFFFFF' } }
-              style={ { fontFamily: '"Tahoma", sans-serif', fontSize: '1rem' } }
+              sx={ { py: 1, textTransform: 'none', color: '#FFFFFF', fontSize: '1rem' } }
               onClick={ handleChangeMensaje } >Agregar mensaje</Button>
           </Grid>
         </Grid>
