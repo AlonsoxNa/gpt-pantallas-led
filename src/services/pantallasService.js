@@ -15,3 +15,24 @@ export const obtenerPantallasApi = async () => {
     return {success: false, message: error.response.message, data: []};
   }
 }
+
+export const enviarMensajeDefecto = async (id, mensaje, animacion) => {
+
+  try {
+    const response = await axios.patch(`${BASE_URL}/pantalla/enviar-mensaje`, {
+      id,
+      mensaje,
+      animacion
+    });
+    
+    if (response.status === 200) {
+      return {success: true, message: "Se actualizó correctamente el mensaje"};
+    }
+    return {success: false, message: "No se pudo enviar el mensaje"};
+  } catch (error) {
+    if (error.response.status === 404) {
+      return {success: false, message: "No se encontró la pantalla"};
+    }
+    return {success: false, message: "No se pudo enviar el mensaje"};
+  }
+};
