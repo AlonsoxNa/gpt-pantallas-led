@@ -60,6 +60,6 @@ export const enviarMensajeProgramado = async (id_pantalla, id_usuario, mensaje, 
     if (error.response.status === 404) {
       return {success: false, message: "No se encontró la pantalla"};
     }
-    return {success: true, message: "No se pudo enviar el mensaje"};
+    return {success: false, message: "No se pudo enviar el mensaje"};
   }
 };
