@@ -59,7 +59,6 @@ export const CambiarMensajePantalla = () => {
       }
       setMsgAlert( response.message );
     } else {
-      console.log( data );
       const response = await enviarMensajeProgramado( pantalla.id, user.id, data.mensaje, data.animacion, data.dias, data.fechaInicioFormatted, data.horaInicioFormatted, data.horaFinFormatted, data.fechaFinFormatted );
 
       if ( response.success ) {
