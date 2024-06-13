@@ -9,6 +9,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../store/user.store';
+import { decodeRol } from '../../utils/rolFromToken';
 
 export const Navbar = () => {
 
@@ -40,11 +41,20 @@ export const Navbar = () => {
   };
 
   const handleGoToPantallas = () => {
-    navigate( '/admin/pantallas' );
+    const rol = decodeRol( user.token );
+    if ( rol === 'administrador' ) {
+      navigate( '/admin/pantallas' );
+    } else if ( rol === 'usuario' ) {
+      navigate( '/usuario/pantallas' );
+    }
   };
 
   const handleGoToUsuarios = () => {
-    navigate( '/admin/usuarios' );
+    const rol = decodeRol( user.token );
+
+    if ( rol === 'administrador' ) {
+      navigate( '/admin/usuarios' );
+    }
   };
 
   return (
@@ -106,7 +116,7 @@ export const Navbar = () => {
                 />
               </ListItemButton>
             </ListItem>
-            <ListItem>
+            { decodeRol( user.token ) === 'administrador' && <ListItem>
               <ListItemButton>
                 <ListItemText
                   onClick={ handleGoToUsuarios }
@@ -114,7 +124,7 @@ export const Navbar = () => {
                   primaryTypographyProps={ { fontSize: '1.5rem', color: 'white' } }
                 />
               </ListItemButton>
-            </ListItem>
+            </ListItem> }
           </List>
         </Grid>
       </Drawer>
