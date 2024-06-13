@@ -8,13 +8,13 @@ export const useMensajeStore = create((set) => ({
     programado: false,
     dias: "Todos los días",
     fechaInicio: dayjs().startOf('day'),
-    fechaInicioFormatted: "",
+    fechaInicioFormatted: dayjs().startOf('day').format( 'YYYY-MM-DD' ),
     horaInicio: dayjs().hour( 0 ).minute( 0 ),
-    horaInicioFormatted: "",
+    horaInicioFormatted: dayjs().hour( 0 ).minute( 0 ).format( 'HH:mm' ),
     horaFin: dayjs().hour( 23 ).minute( 59 ),
-    horaFinFormatted: "",
+    horaFinFormatted: dayjs().hour( 23 ).minute( 59 ).format( 'HH:mm'),
     fechaFin: dayjs().startOf('day'),
-    fechaFinFormatted: ""
+    fechaFinFormatted: dayjs().startOf('day').format( 'YYYY-MM-DD' )
   },
   setMensaje: ({target}) => set((state) => ({
     data: {
@@ -66,6 +66,22 @@ export const useMensajeStore = create((set) => ({
       ...state.data,
       fechaFin,
       fechaFinFormatted: fechaFin.format( 'YYYY-MM-DD' )
+    }
+  })),
+  clearMensaje: () => set(({
+    data: {
+      mensaje: "",
+      animacion: 10,
+      programado: false,
+      dias: "Todos los días",
+      fechaInicio: dayjs().startOf('day'),
+      fechaInicioFormatted: "",
+      horaInicio: dayjs().hour( 0 ).minute( 0 ),
+      horaInicioFormatted: "",
+      horaFin: dayjs().hour( 23 ).minute( 59 ),
+      horaFinFormatted: "",
+      fechaFin: dayjs().startOf('day'),
+      fechaFinFormatted: ""
     }
   }))
 }))

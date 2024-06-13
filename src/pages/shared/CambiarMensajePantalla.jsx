@@ -24,7 +24,7 @@ export const CambiarMensajePantalla = () => {
   const [ msgAlert, setMsgAlert ] = useState( '' );
   const [ tipoMensaje, setTipoMensaje ] = useState( 'error' );
 
-  const { data, setMensaje, setAnimacion: onChangeAnimacion, setProgramado } = useMensajeStore();
+  const { data, setMensaje, setAnimacion: onChangeAnimacion, setProgramado, clearMensaje } = useMensajeStore();
 
   const handleCloseAlert = () => {
     setIsOpenAlert( false );
@@ -53,15 +53,18 @@ export const CambiarMensajePantalla = () => {
 
       if ( response.success ) {
         setTipoMensaje( 'success' );
+        clearMensaje();
       } else {
         setTipoMensaje( 'error' );
       }
       setMsgAlert( response.message );
     } else {
+      console.log( data );
       const response = await enviarMensajeProgramado( pantalla.id, user.id, data.mensaje, data.animacion, data.dias, data.fechaInicioFormatted, data.horaInicioFormatted, data.horaFinFormatted, data.fechaFinFormatted );
 
       if ( response.success ) {
         setTipoMensaje( 'success' );
+        clearMensaje();
       } else {
         setTipoMensaje( 'error' );
       }
