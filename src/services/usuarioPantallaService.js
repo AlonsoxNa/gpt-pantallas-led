@@ -15,3 +15,47 @@ export const getPantallasUsuarioApi = async (id_usuario) => {
     return {success: false, message: error.response.message, data: []};
   }
 }
+
+export const asociarPantallaUsuario = async (usuario_id, pantalla_id) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/usuario-pantalla/`, {
+      usuario_id,
+      pantalla_id
+    
+    })
+
+    if (response.status === 201) {
+      return { success: true, message: "Pantalla asociada correctamente" };
+    }
+    return { success: false, message: "Error al asociar la pantalla" };
+  } catch (error) {
+
+    if (error.response.status === 409) {
+      return { success: false, message: "Ya existe la asociación" }
+    }
+
+    return { success: false, message: "Ha ocurrido un error" }
+  }
+}
+
+export const desasociarPantallaUsuario = async (usuario_id, pantalla_id) => {
+  try {
+    
+    const response = await axios.delete(`${BASE_URL}/usuario-pantalla/`, {
+      pantalla_id,
+      usuario_id
+    })
+
+    if ( response.status === 200 ) {
+      return { success: true, message: "Pantalla desasociada correctamente" }
+    }
+
+    return { success: false, message: "Ha ocurrido un error al desasociar"}
+  } catch (error) {
+    if ( error.response.status === 409 ) {
+      return { success: false, message: "No existe la asociación" };
+    }
+
+    return { success: false, message: "Ha ocurrido un error al desasociar" };
+  }
+};

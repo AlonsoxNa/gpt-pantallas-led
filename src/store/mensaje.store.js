@@ -75,13 +75,13 @@ export const useMensajeStore = create((set) => ({
       programado: false,
       dias: "Todos los días",
       fechaInicio: dayjs().startOf('day'),
-      fechaInicioFormatted: "",
+      fechaInicioFormatted: dayjs().startOf('day').format( 'YYYY-MM-DD' ),
       horaInicio: dayjs().hour( 0 ).minute( 0 ),
-      horaInicioFormatted: "",
+      horaInicioFormatted: dayjs().hour( 0 ).minute( 0 ).format( 'HH:mm' ),
       horaFin: dayjs().hour( 23 ).minute( 59 ),
-      horaFinFormatted: "",
+      horaFinFormatted: dayjs().hour( 0 ).minute( 0 ).format( 'HH:mm' ),
       fechaFin: dayjs().startOf('day'),
-      fechaFinFormatted: ""
+      fechaFinFormatted: dayjs().startOf('day').format( 'YYYY-MM-DD' )
     }
   }))
 }))

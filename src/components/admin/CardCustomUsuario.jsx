@@ -1,13 +1,25 @@
+import AddLinkIcon from '@mui/icons-material/AddLink';
 import { Button, Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ModalAsociarPantalla } from './ModalAsociarPantalla';
 
 
 export const CardCustomUsuario = ( { usuario } ) => {
   const navigate = useNavigate();
 
+  const [ openModal, setOpenModal ] = useState( false );
+
   const onClickUser = () => {
     navigate( `/admin/pantallas-usuario`, { state: usuario } );
+  };
+
+  const handleAsociarPantalla = () => {
+    setOpenModal( true );
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal( false );
   };
 
   return (
@@ -35,10 +47,11 @@ export const CardCustomUsuario = ( { usuario } ) => {
         >
           { usuario.cantidadPantallas } pantallas
         </Button>
-        <IconButton sx={ { marginBottom: '24px' } } >
-          <EditIcon />
+        <IconButton sx={ { marginBottom: '24px' } } onClick={ handleAsociarPantalla } >
+          <AddLinkIcon />
         </IconButton>
       </CardActions>
+      <ModalAsociarPantalla open={ openModal } handleClose={ handleCloseModal } usuario={ usuario } />
     </Card>
   );
 };
