@@ -1,10 +1,11 @@
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import { RelojCustom } from './RelojCustom';
 import { useMensajeStore } from '../../store/mensaje.store';
+import { DateCustom } from './DateCustom';
 
 export const MensajeProgramadoForm = () => {
 
-  const { data, setDias, setHoraInicio, setHoraFin } = useMensajeStore();
+  const { data, setDias, setHoraInicio, setHoraFin, setFechaInicio, setFechaFin } = useMensajeStore();
 
   const handleChangeDias = ( e ) => {
     setDias( e.target.value );
@@ -30,11 +31,18 @@ export const MensajeProgramadoForm = () => {
         </FormControl>
 
       </Grid>
+
+      <Grid item xs={ 12 }>
+        <DateCustom label={ "inicio" } value={ data.fechaInicio } setValue={ setFechaInicio } />
+      </Grid>
       <Grid item xs={ 12 }>
         <RelojCustom label={ "inicio" } value={ data.horaInicio } setValue={ setHoraInicio } />
       </Grid>
       <Grid item xs={ 12 }>
         <RelojCustom label={ "fin" } value={ data.horaFin } setValue={ setHoraFin } />
+      </Grid>
+      <Grid item xs={ 12 }>
+        <DateCustom label={ "inicio" } value={ data.fechaFin } setValue={ setFechaFin } />
       </Grid>
     </>
   );

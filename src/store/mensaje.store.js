@@ -7,10 +7,14 @@ export const useMensajeStore = create((set) => ({
     animacion: 10,
     programado: false,
     dias: "Todos los días",
+    fechaInicio: dayjs().startOf('day'),
+    fechaInicioFormatted: "",
     horaInicio: dayjs().hour( 0 ).minute( 0 ),
     horaInicioFormatted: "",
     horaFin: dayjs().hour( 23 ).minute( 59 ),
-    horaFinFormatted: ""
+    horaFinFormatted: "",
+    fechaFin: dayjs().startOf('day'),
+    fechaFinFormatted: ""
   },
   setMensaje: ({target}) => set((state) => ({
     data: {
@@ -50,4 +54,18 @@ export const useMensajeStore = create((set) => ({
       horaFinFormatted: horaFin.format( 'HH:mm' )
     }
   })),
+  setFechaInicio: (fechaInicio) => set((state) => ({
+    data: {
+      ...state.data,
+      fechaInicio,
+      fechaInicioFormatted: fechaInicio.format( 'YYYY-MM-DD' )
+    }
+  })),
+  setFechaFin: (fechaFin) => set((state) => ({
+    data: {
+      ...state.data,
+      fechaFin,
+      fechaFinFormatted: fechaFin.format( 'YYYY-MM-DD' )
+    }
+  }))
 }))

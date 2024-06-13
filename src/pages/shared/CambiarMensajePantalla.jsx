@@ -5,7 +5,7 @@ import { animaciones } from '../../assets/data/animaciones';
 import { MensajeProgramadoForm } from '../../components/shared/MensajeProgramadoForm';
 import { CustomAlert } from '../../components/ui/CustomAlert';
 import { CustomProgress } from '../../components/ui/CustomProgress';
-import { enviarMensajeDefecto } from '../../services/pantallasService';
+import { enviarMensajeDefecto, enviarMensajeProgramado } from '../../services/pantallasService';
 import { useMensajeStore } from '../../store/mensaje.store';
 import { validarCampos } from '../../utils/validarCamposMensaje';
 import { useUserStore } from '../../store/user.store';
@@ -57,7 +57,17 @@ export const CambiarMensajePantalla = () => {
         setTipoMensaje( 'error' );
       }
       setMsgAlert( response.message );
+    } else {
+      const response = await enviarMensajeProgramado( pantalla.id, user.id, data.mensaje, data.animacion, data.dias, data.fechaInicioFormatted, data.horaInicioFormatted, data.horaFinFormatted, data.fechaFinFormatted );
+
+      if ( response.success ) {
+        setTipoMensaje( 'success' );
+      } else {
+        setTipoMensaje( 'error' );
+      }
+      setMsgAlert( response.message );
     }
+
     setIsOpenAlert( true );
     setIsLoading( false );
   };

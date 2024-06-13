@@ -36,3 +36,30 @@ export const enviarMensajeDefecto = async (id_pantalla, id_usuario, mensaje, ani
     return {success: false, message: "No se pudo enviar el mensaje"};
   }
 };
+
+export const enviarMensajeProgramado = async (id_pantalla, id_usuario, mensaje, animacion, dias, fecha_inicio, hora_inicio, hora_fin, fecha_fin) => {
+  try {
+    const response = await axios.patch(`${BASE_URL}/pantalla/enviar-mensaje-programado?id=${id_usuario}`, {
+      id: id_pantalla,
+      mensaje,
+      animacion,
+      dias,
+      fecha_inicio,
+      hora_inicio,
+      hora_fin,
+      fecha_fin
+    })
+
+    if (response.status === 200) {
+      return {success: true, message: "Se envió correctamente el mensaje"};
+    }
+
+    return {success: false, message: "No se pudo enviar el mensaje"};
+  } catch (error) {
+
+    if (error.response.status === 404) {
+      return {success: false, message: "No se encontró la pantalla"};
+    }
+    return {success: true, message: "No se pudo enviar el mensaje"};
+  }
+};
