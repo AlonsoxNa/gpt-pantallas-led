@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -21,18 +22,27 @@ export const ModalAsociarPantalla = ({ open, handleClose, usuario }) => {
   const { isLoading: loadingPantallas, pantallas } = usePantallas();
 
   const [pantalla, setPantalla] = useState("");
+  const [errorPantalla, setErrorPantalla] = useState("");
 
   //alert
   const [isOpenAlert, setIsOpenAlert] = useState(false);
   const [msgAlert, setMsgAlert] = useState("");
   const [tipoMsg, setTipoMsg] = useState("");
 
-  const handleChangePantalla = (event) => {
-    setPantalla(event.target.value);
+  const handleChangePantalla = ({ target }) => {
+    const { value } = target;
+    setPantalla(value);
+    setErrorPantalla("");
   };
 
   const handleAsociarPantalla = async () => {
     setIsLoading(true);
+
+    if (pantalla === "") {
+      setErrorPantalla("Debes seleccionar una pantalla");
+      setIsLoading(false);
+      return;
+    }
 
     const response = await asociarPantallaUsuario(usuario.id, pantalla);
 
@@ -57,7 +67,7 @@ export const ModalAsociarPantalla = ({ open, handleClose, usuario }) => {
         Asociar pantalla a {usuario.nombreCompleto.split(" ")[0]}
       </DialogTitle>
       <DialogContent>
-        <FormControl fullWidth sx={{ my: 4 }}>
+        <FormControl fullWidth sx={{ my: 4 }} error={!!errorPantalla}>
           <InputLabel id="demo-simple-select-label">
             Selecciona pantalla
           </InputLabel>
@@ -65,6 +75,7 @@ export const ModalAsociarPantalla = ({ open, handleClose, usuario }) => {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={pantalla}
+            name="pantalla"
             label="Selecciona pantalla"
             onChange={handleChangePantalla}
           >
@@ -74,6 +85,7 @@ export const ModalAsociarPantalla = ({ open, handleClose, usuario }) => {
               </MenuItem>
             ))}
           </Select>
+          <FormHelperText>{errorPantalla}</FormHelperText>
         </FormControl>
       </DialogContent>
       <DialogActions>
