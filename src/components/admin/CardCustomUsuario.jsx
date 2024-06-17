@@ -51,7 +51,7 @@ export const CardCustomUsuario = ( { usuario } ) => {
           <AddLinkIcon />
         </IconButton>
       </CardActions>
-      <ModalAsociarPantalla open={ openModal } handleClose={ handleCloseModal } usuario={ usuario } />
+      {openModal && <ModalAsociarPantalla open={ openModal } handleClose={ handleCloseModal } usuario={ usuario } />}
     </Card>
   );
 };

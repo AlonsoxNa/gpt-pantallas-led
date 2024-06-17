@@ -21,7 +21,6 @@ export const asociarPantallaUsuario = async (usuario_id, pantalla_id) => {
     const response = await axios.post(`${BASE_URL}/usuario-pantalla/`, {
       usuario_id,
       pantalla_id
-    
     })
 
     if (response.status === 201) {
