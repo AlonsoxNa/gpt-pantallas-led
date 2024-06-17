@@ -55,7 +55,7 @@ export const Login = () => {
       }
       return;
     } else {
-      setMsgAlert( 'Credenciales incorrectas' );
+      setMsgAlert( response.message );
     }
     setIsOpenAlert( true );
     setIsOpen( false );
