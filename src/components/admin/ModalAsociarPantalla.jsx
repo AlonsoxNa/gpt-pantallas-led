@@ -66,7 +66,7 @@ export const ModalAsociarPantalla = ({ open, handleClose, usuario }) => {
       <DialogTitle>
         Asociar pantalla a {usuario.nombreCompleto.split(" ")[0]}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ px: 3 }}>
         <FormControl fullWidth sx={{ my: 4 }} error={!!errorPantalla}>
           <InputLabel id="demo-simple-select-label">
             Selecciona pantalla
@@ -88,7 +88,7 @@ export const ModalAsociarPantalla = ({ open, handleClose, usuario }) => {
           <FormHelperText>{errorPantalla}</FormHelperText>
         </FormControl>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{ px: 3 }}>
         <Button onClick={handleClose} variant="contained" color="error">
           Cancelar
         </Button>
