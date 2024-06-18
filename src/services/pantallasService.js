@@ -81,7 +81,24 @@ export const enviarMensajeProgramado = async (
     console.log(error);
     if (error.response.status === 404) {
       return { success: false, message: "No se encontró la pantalla" };
+    } else if (error.response.status === 412) {
+      return { success: false, message: "Usuario no encontrado" };
+    } else if (error.response.status === 414) {
+      return { success: false, message: "El usuario no tiene permisos para enviar mensajes" };
+    } else if (error.response.status === 413) {
+      return { success: false, message: "Ya tienes mensajes programados" };
+    } else if (error.response.status === 411) {
+      return { success: false, message: "Si tienes fecha de término debes tener fecha de inicio" };
+    } else if ( error.response.status === 410 ) {
+      return { success: false, message: "Si tienes hora de inicio debes tener fecha de inicio" };
+    } else if ( error.response.status === 415) {
+      return { success: false, message: "Si tienes hora de fin debes tener fecha de término" };
+    } else if ( error.response.status === 416) {
+      return { success: false, message: "La fecha de fin debe ser mayor a la fecha de inicio"};
+    } else if (error.response.status === 417) {
+      return { success: false, message: "La hora de fin debe ser mayor a la hora de inicio"};
     }
+
     return { success: false, message: "No se pudo enviar el mensaje" };
   }
 };
