@@ -115,12 +115,10 @@ export const crearPantalla = async (nombre) => {
 
     return { success: false, message: "No se pudo crear la pantalla" };
   } catch (error) {
-    let message = "No se pudo crear la pantalla";
-
     if (error.response.status === 409) {
-      message = "Ya existe una pantalla con ese nombre";
+      return { success: false, message: "Ya existe una pantalla con ese nombre" }
     } else {
-      return { success: false, message };
+      return { success: false, message: "No se pudo crear la pantalla" };
     }
   }
 };
