@@ -1,33 +1,48 @@
-import AddLinkIcon from '@mui/icons-material/AddLink';
-import LinkOffIcon from '@mui/icons-material/LinkOff';
-import { Button, Grid, Typography } from '@mui/material';
-import { useLocation } from 'react-router-dom';
-import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla';
-import { usePantallasUsuario } from '../../hooks/admin/usePantallasUsuario';
-import { CustomProgress } from '../../components/ui/CustomProgress';
-import { useState } from 'react';
-import { ModalAsociarPantalla } from '../../components/admin/ModalAsociarPantalla';
+import AddLinkIcon from '@mui/icons-material/AddLink'
+import LinkOffIcon from '@mui/icons-material/LinkOff'
+import { Button, Grid, Typography } from '@mui/material'
+import { useLocation } from 'react-router-dom'
+import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla'
+import { usePantallasUsuario } from '../../hooks/admin/usePantallasUsuario'
+import { CustomProgress } from '../../components/ui/CustomProgress'
+import { useState } from 'react'
+import { ModalAsociarPantalla } from '../../components/admin/ModalAsociarPantalla'
+import { desasociarPantallaUsuario } from '../../services/usuarioPantallaService'
+import { CustomAlert } from '../../components/ui/CustomAlert'
 
 export const PantallasDeUsuario = () => {
 
-  const location = useLocation();
-  const usuario = location.state;
+  const location = useLocation()
+  const usuario = location.state
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false)
+  const [alerta, setAlerta] = useState({ open: false, mensaje: '', tipo: 'error' })
 
-  const { isLoading, pantallasUsuario } = usePantallasUsuario(usuario.id);
+  const { isLoading, pantallasUsuario } = usePantallasUsuario(usuario.id)
 
   const onDesasociarPantalla = (pantalla) => {
-    console.log('Desasociar pantalla con id:', pantalla.id);
-  };
+    desasociarPantallaUsuario(usuario.id, pantalla.id)
+      .then(response => {
+        if (response.success) {
+          setAlerta({ open: true, mensaje: response.message, tipo: 'success' })
+          pantallasUsuario.pop(pantalla) // No se si es la mejor forma de hacerlo
+        } else {
+          setAlerta({ open: true, mensaje: response.message, tipo: 'error' })
+        }
+      })
+  }
 
   const handleAsociarPantalla = () => {
-    setOpenModal(true);
-  };
+    setOpenModal(true)
+  }
 
   const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+    setOpenModal(false)
+  }
+
+  const handleCloseAlert = () => {
+    setAlerta({ ...alerta, open: false })
+  }
 
   return (
     <>
@@ -56,6 +71,7 @@ export const PantallasDeUsuario = () => {
           usuario={usuario}
         />
       )}
+      <CustomAlert handleClose={handleCloseAlert} mensaje={alerta.mensaje} tipoMensaje={alerta.tipo} open={alerta.open} />
     </>
-  );
-};
+  )
+}
