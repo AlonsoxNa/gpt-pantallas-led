@@ -15,7 +15,7 @@ export const PantallasDeUsuario = () => {
 
   const [openModal, setOpenModal] = useState(false);
 
-  const { isLoading, pantallasUsuario } = usePantallasUsuario(usuario.id);
+  const { isLoading, pantallasUsuario, getPantallasUsuario } = usePantallasUsuario(usuario.id);
 
   const onDesasociarPantalla = (pantalla) => {
     console.log('Desasociar pantalla con id:', pantalla.id);
@@ -59,6 +59,7 @@ export const PantallasDeUsuario = () => {
           open={openModal}
           handleClose={handleCloseModal}
           usuario={usuario}
+          fetchPantallas={getPantallasUsuario}
         />
       )}
     </>

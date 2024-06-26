@@ -21,6 +21,7 @@ export const usePantallasUsuario = (id_usuario) => {
 
   return {
     isLoading,
-    pantallasUsuario
+    pantallasUsuario,
+    getPantallasUsuario
   }
 }
