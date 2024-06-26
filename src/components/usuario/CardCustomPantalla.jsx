@@ -1,52 +1,67 @@
-import { Button, Card, CardActions, CardContent, IconButton, Tooltip, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { limitarMaxString } from "../../utils/limitarMaxString";
-import { useState } from 'react';
+import { Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medium" />, accionIcono } ) => {
+export const CardCustomPantalla = ( { pantalla } ) => {
 
-  const [ openSala, setOpenSala ] = useState( false );
+  const navigate = useNavigate();
 
-  const onClickNombreSala = () => {
-    setOpenSala( true );
-  };
-
-  const onCloseNombreSala = () => {
-    setOpenSala( false );
-  };
-
-  const onClickIcono = () => {
-    accionIcono( pantalla );
+  const onEditPantalla = ( ) => {
+    navigate( '/usuario/cambiar-mensaje-pantalla', { state: { pantalla } } );
   };
 
   return (
-    <Card sx={ { minWidth: 275, mt: 4, boxShadow: 3 } }>
-      <CardContent>
-        <Typography variant="h5" component="h6" textAlign="center">
+    <Card sx={{ minWidth: 275, mt: 4, boxShadow: 3 }}>
+      <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+        <Typography
+          variant="h6"
+          component="h6"
+          textAlign="left"
+          fontWeight={500}
+        >
+          {pantalla.nombre}
+        </Typography>
+        <Divider />
+        <Typography
+          variant="h6"
+          component="h6"
+          textAlign="center"
+          fontWeight={400}
+        >
           Mensaje activo:
         </Typography>
 
-        <Typography variant="body1" component="p" textAlign="center" sx={ { my: 1 } }>
-          { pantalla.mensajeActual?.split( "&" )[ 0 ] }
+        <Typography
+          variant="body1"
+          component="p"
+          textAlign="center"
+          sx={{ my: 1 }}
+        >
+          {pantalla.mensajeActual.split("&")[0]}
         </Typography>
       </CardContent>
-      <CardActions sx={ { justifyContent: 'space-around', gap: 4 } }>
+      <CardActions sx={{ justifyContent: "center", gap: 1, px: 1 }}>
+        <Button
+          variant="contained"
+          size="medium"
+          color="tagEdificio"
+          sx={{ textTransform: "none", marginBottom: "24px" }}
+        >
+          {pantalla.habilitada ? "Habilitada" : "Deshabilitada"}
+        </Button>
+
         <Button
           variant="contained"
           size="medium"
           color="tagSala"
-          sx={ { textTransform: 'none' } }
+          sx={{ textTransform: "none", marginBottom: "24px" }}
+          startIcon={<EditIcon fontSize="medium" />}
+          onClick={onEditPantalla}
         >
-          <Tooltip title={ pantalla.nombre } open={ openSala } onClick={ onClickNombreSala } onClose={ onCloseNombreSala }>
-            <Typography variant="body2" component="p">
-              { limitarMaxString( pantalla.nombre ) }
-            </Typography>
-          </Tooltip>
+          Editar
         </Button>
-        <IconButton onClick={ onClickIcono } >
-          { icono }
-        </IconButton>
       </CardActions>
+      
     </Card>
   );
 };
