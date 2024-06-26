@@ -1,12 +1,11 @@
 import AddLinkIcon from '@mui/icons-material/AddLink';
-import LinkOffIcon from '@mui/icons-material/LinkOff';
 import { Button, Grid, Typography } from '@mui/material';
-import { useLocation } from 'react-router-dom';
-import { CardCustomPantalla } from '../../components/admin/CardCustomPantalla';
-import { usePantallasUsuario } from '../../hooks/admin/usePantallasUsuario';
-import { CustomProgress } from '../../components/ui/CustomProgress';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { CardCustomPantallaUsuario } from '../../components/admin/CardCustomPantallaUsuario';
 import { ModalAsociarPantalla } from '../../components/admin/ModalAsociarPantalla';
+import { CustomProgress } from '../../components/ui/CustomProgress';
+import { usePantallasUsuario } from '../../hooks/admin/usePantallasUsuario';
 
 export const PantallasDeUsuario = () => {
 
@@ -17,9 +16,7 @@ export const PantallasDeUsuario = () => {
 
   const { isLoading, pantallasUsuario, getPantallasUsuario } = usePantallasUsuario(usuario.id);
 
-  const onDesasociarPantalla = (pantalla) => {
-    console.log('Desasociar pantalla con id:', pantalla.id);
-  };
+  
 
   const handleAsociarPantalla = () => {
     setOpenModal(true);
@@ -44,11 +41,8 @@ export const PantallasDeUsuario = () => {
         <Grid container>
           {pantallasUsuario.map((pantalla, index) => (
             <Grid item xs={12} key={index}>
-              <CardCustomPantalla 
+              <CardCustomPantallaUsuario 
                 pantalla={pantalla.pantalla} 
-                icono={<LinkOffIcon fontSize="large" />} 
-                accionIcono={onDesasociarPantalla} 
-                textIcono="Desasociar"
               />
             </Grid>
           ))}

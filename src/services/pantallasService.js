@@ -122,3 +122,23 @@ export const crearPantalla = async (nombre) => {
     }
   }
 };
+
+export const borrarPantalla = async (id_pantalla) => {
+  try {
+    
+    const response = await axios.delete(`${BASE_URL}/pantalla?id=${id_pantalla}`);
+
+    if ( response.status === 200 ) {
+      return { success: true, message: "Se borró correctamente la pantalla" };
+    } else {
+      return { success: false, message: "No se pudo borrar la pantalla" }
+    }
+  } catch (error) {
+
+    if ( error.response.status === 404 ) {
+      return { success: false, message: "No se encontró la pantalla" };
+    } else {
+      return { success: false, message: "No se pudo borrar la pantalla" };
+    }
+  }
+}

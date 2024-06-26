@@ -1,10 +1,26 @@
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ModalBorrarPantalla } from './ModalBorrarPantalla';
 
-export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medium" />, accionIcono, textIcono = "Editar" } ) => {
+export const CardCustomPantalla = ( { pantalla } ) => {
 
-  const onClickIcono = () => {
-    accionIcono( pantalla );
+  const navigate = useNavigate();
+
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const onEditPantalla = () => {
+    navigate("/admin/cambiar-mensaje-pantalla", { state: { pantalla } });
+  };
+
+  const onDeletePantalla = () => {
+    setOpenDeleteModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenDeleteModal(false);
   };
 
   return (
@@ -22,7 +38,7 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           { pantalla.mensajeActual.split( "&" )[ 0 ] }
         </Typography>
       </CardContent>
-      <CardActions sx={ { justifyContent: 'center', gap: 4 } }>
+      <CardActions sx={ { justifyContent: 'center', gap: 1, px: 1 } }>
         <Button
           variant="contained"
           size="medium"
@@ -31,18 +47,37 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
         >
           { pantalla.habilitada ? 'Habilitada' : 'Deshabilitada' }
         </Button>
+
+        <Button
+          variant="contained"
+          size="medium"
+          color="error"
+          sx={{ textTransform: 'none', marginBottom: '24px' }}
+          startIcon={ <DeleteIcon fontSize="medium" /> }
+          onClick={ onDeletePantalla }
+        >
+          Borrar
+        </Button>
+        
         <Button
           variant="contained"
           size="medium"
           color="tagSala"
           sx={{ textTransform: 'none', marginBottom: '24px' }}
-          startIcon={ icono }
-          onClick={ onClickIcono }
+          startIcon={ <EditIcon fontSize="medium" /> }
+          onClick={ onEditPantalla }
         >
-          { textIcono }
+          Editar
         </Button>
         
       </CardActions>
+      { openDeleteModal && (
+        <ModalBorrarPantalla 
+          open={ openDeleteModal } 
+          handleClose={ handleCloseModal } 
+          pantallaId={ pantalla.id }
+        />
+      )}
     </Card>
   );
 };
