@@ -1,20 +1,22 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@mui/material';
 import { useState } from 'react';
+
 import { borrarPantalla } from '../../services/pantallasService';
-import { CustomAlert } from '../ui/CustomAlert';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@mui/material';
 import { CustomProgress } from '../ui/CustomProgress';
 
 import ErrorIcon from '@mui/icons-material/Error';
 
-export const ModalBorrarPantalla = ({ open, handleClose, pantallaId}) => {
+export const ModalBorrarPantalla = ({ 
+  open, 
+  handleClose, 
+  pantallaId, 
+  fetchPantallas,
+  setMsgAlert,
+  setTipoMsg,
+  setIsOpenAlert
+}) => {
   
   const [isLoading, setIsLoading] = useState(false);
-
-  // Alertas
-  const [isOpenAlert, setIsOpenAlert] = useState(false);
-  const [msgAlert, setMsgAlert] = useState('');
-  const [tipoMsg, setTipoMsg] = useState('success');
-
 
   const handleBorrarPantalla = async () => {
     setIsLoading(true);
@@ -24,7 +26,8 @@ export const ModalBorrarPantalla = ({ open, handleClose, pantallaId}) => {
     if (response.success) {
       setMsgAlert(response.message);
       setTipoMsg('success');
-      // handleClose();
+      fetchPantallas();
+      handleClose();
     } else {
       setMsgAlert(response.message);
       setTipoMsg('error');
@@ -33,10 +36,6 @@ export const ModalBorrarPantalla = ({ open, handleClose, pantallaId}) => {
     setIsOpenAlert(true);
     setIsLoading(false);
   }
-
-  const handleCloseAlert = () => {
-    setIsOpenAlert(false);
-  };
   
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -63,12 +62,6 @@ export const ModalBorrarPantalla = ({ open, handleClose, pantallaId}) => {
         </Button>
       </DialogActions>
       {isLoading && <CustomProgress open={isLoading} />}
-      <CustomAlert
-        handleClose={handleCloseAlert}
-        mensaje={msgAlert}
-        tipoMensaje={tipoMsg}
-        open={isOpenAlert}
-      />
     </Dialog>
   )
 }
