@@ -1,19 +1,7 @@
-import { Button, Card, CardActions, CardContent, IconButton, Tooltip, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { limitarMaxString } from "../../utils/limitarMaxString";
-import { useState } from 'react';
+import { Button, Card, CardActions, CardContent, Divider, Typography } from '@mui/material';
 
-export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medium" />, accionIcono } ) => {
-
-  const [ openSala, setOpenSala ] = useState( false );
-
-  const onClickNombreSala = () => {
-    setOpenSala( true );
-  };
-
-  const onCloseNombreSala = () => {
-    setOpenSala( false );
-  };
+export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medium" />, accionIcono, textIcono = "Editar" } ) => {
 
   const onClickIcono = () => {
     accionIcono( pantalla );
@@ -21,8 +9,12 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
 
   return (
     <Card sx={ { minWidth: 275, mt: 4, boxShadow: 3 } }>
-      <CardContent>
-        <Typography variant="h5" component="h6" textAlign="center">
+      <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Typography variant="h6" component="h6" textAlign="left" fontWeight={500}>
+          { pantalla.nombre }
+        </Typography>
+        <Divider />
+        <Typography variant="h6" component="h6" textAlign="center" fontWeight={400}>
           Mensaje activo:
         </Typography>
 
@@ -43,17 +35,13 @@ export const CardCustomPantalla = ( { pantalla, icono = <EditIcon fontSize="medi
           variant="contained"
           size="medium"
           color="tagSala"
-          sx={ { textTransform: 'none', marginBottom: '24px' } }
+          sx={{ textTransform: 'none', marginBottom: '24px' }}
+          startIcon={ icono }
+          onClick={ onClickIcono }
         >
-          <Tooltip title={ pantalla.nombre } open={ openSala } onClick={ onClickNombreSala } onClose={ onCloseNombreSala }>
-            <Typography variant="body2" component="p">
-              { limitarMaxString( pantalla.nombre ) }
-            </Typography>
-          </Tooltip>
+          { textIcono }
         </Button>
-        <IconButton onClick={ onClickIcono } sx={ { marginBottom: '24px' } }>
-          { icono }
-        </IconButton>
+        
       </CardActions>
     </Card>
   );
