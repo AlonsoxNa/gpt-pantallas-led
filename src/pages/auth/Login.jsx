@@ -15,7 +15,7 @@ export const Login = () => {
 
   const handleLogin = useUserStore( ( state ) => state.handleLogin );
 
-  const [ isOpen, setIsOpen ] = useState( false );
+  const [ isLoading, setIsLoading ] = useState( false );
   const [ isOpenAlert, setIsOpenAlert ] = useState( false );
   const [ msgAlert, setMsgAlert ] = useState( '' );
   const [ showPassword, setShowPassword ] = useState( false );
@@ -39,7 +39,7 @@ export const Login = () => {
   };
 
   const onSubmit = async ( data ) => {
-    setIsOpen( true );
+    setIsLoading( true );
 
     const response = await login( data );
 
@@ -58,7 +58,7 @@ export const Login = () => {
       setMsgAlert( response.message );
     }
     setIsOpenAlert( true );
-    setIsOpen( false );
+    setIsLoading( false );
   };
   return (
     <Grid
@@ -146,7 +146,7 @@ export const Login = () => {
         </Grid>
       </Paper>
       <CustomAlert handleClose={ handleCloseAlert } mensaje={ msgAlert } tipoMensaje={ 'error' } open={ isOpenAlert } />
-      <CustomProgress open={ isOpen } />
+      <CustomProgress open={ isLoading } />
     </Grid>
   );
 };

@@ -19,14 +19,11 @@ export const login = async ({email, password}) => {
 
     return {success: false, message: "Ha ocurrido un error"};
   } catch (error) {
-    let message = "Ha ocurrido un error";
-
-    if (error.response.status === 401 || error.response.status === 400) {
-      message = "Credenciales incorrectas";
-    } else if (error.response.status === 404) {
-      message = "El usuario no existe";
+    if (error.response.status === 401 | error.response.status === 404) {
+      return { success: false, message: "Credenciales incorrectas"}
+    } else {
+      return {success: false, message: "Ha ocurrido un error"};
     }
 
-    return {success: false, message};
   }
 }
