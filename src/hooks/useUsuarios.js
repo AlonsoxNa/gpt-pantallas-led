@@ -21,6 +21,7 @@ export const useUsuarios = () => {
   
   return {
     isLoading,
-    usuarios
+    usuarios,
+    obtenerUsuarios
   }
 }
