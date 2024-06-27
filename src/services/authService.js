@@ -16,9 +16,40 @@ export const login = async ({email, password}) => {
         id: response.data.id
       }};
     }
-    return {success: false, message: response.data.message};
 
+    return {success: false, message: "Ha ocurrido un error"};
   } catch (error) {
-    return {success: false, message: error.response.message};
+    if (error.response.status === 401 | error.response.status === 404) {
+      return { success: false, message: "Credenciales incorrectas"}
+    } else {
+      return {success: false, message: "Ha ocurrido un error"};
+    }
+
   }
 }
+
+export const registerUser = async ({email, password, name}) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/usuario/registrar`, {
+        email,
+        contrasena: password,
+        nombre_completo: name
+      });
+  
+      if (response.status === 201) {
+        return { success: true, data: response.data };
+      }
+  
+      return { success: false, message: "Ha ocurrido un error" };
+    } catch (error) {
+      let message = "Ha ocurrido un error";
+  
+      if (error.response.status === 400) {
+        message = "Datos inválidos";
+      } else if (error.response.status === 409) {
+        message = "El usuario ya existe";
+      }
+  
+      return { success: false, message };
+    }
+  }

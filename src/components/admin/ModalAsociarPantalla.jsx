@@ -1,77 +1,115 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { useState } from 'react';
-import { usePantallas } from '../../hooks/usePantallas';
-import { asociarPantallaUsuario } from '../../services/usuarioPantallaService';
-import { CustomProgress } from '../ui/CustomProgress';
-import { CustomAlert } from '../ui/CustomAlert';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
+import { useState } from "react";
+import { usePantallas } from "../../hooks/usePantallas";
+import { asociarPantallaUsuario } from "../../services/usuarioPantallaService";
+import { CustomProgress } from "../ui/CustomProgress";
+import { CustomAlert } from "../ui/CustomAlert";
 
-export const ModalAsociarPantalla = ( { open, handleClose, usuario } ) => {
+export const ModalAsociarPantalla = ({ open, handleClose, usuario, fetchPantallas }) => {
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [ isLoading, setIsLoading ] = useState( false );
-  const [ pantalla, setPantalla ] = useState( {} );
+  const { isLoading: loadingPantallas, pantallas } = usePantallas();
 
-  const { pantallas } = usePantallas();
+  const [pantalla, setPantalla] = useState("");
+  const [errorPantalla, setErrorPantalla] = useState("");
 
   //alert
-  const [ isOpenAlert, setIsOpenAlert ] = useState( false );
-  const [ msgAlert, setMsgAlert ] = useState( '' );
-  const [ tipoMsg, setTipoMsg ] = useState( '' );
+  const [isOpenAlert, setIsOpenAlert] = useState(false);
+  const [msgAlert, setMsgAlert] = useState("");
+  const [tipoMsg, setTipoMsg] = useState("");
 
-  const handleChangePantalla = ( event ) => {
-    setPantalla( event.target.value );
+  const handleChangePantalla = ({ target }) => {
+    const { value } = target;
+    setPantalla(value);
+    setErrorPantalla("");
   };
 
   const handleAsociarPantalla = async () => {
-    setIsLoading( true );
+    setIsLoading(true);
 
-    const response = await asociarPantallaUsuario( usuario.id, pantalla.id );
-
-    if ( response.success ) {
-      setMsgAlert( response.message );
-      setTipoMsg( 'success' );
-
-    } else {
-      setMsgAlert( response.message );
-      setTipoMsg( 'error' );
+    if (pantalla === "") {
+      setErrorPantalla("Debes seleccionar una pantalla");
+      setIsLoading(false);
+      return;
     }
-    setIsOpenAlert( true );
-    setIsLoading( false );
+
+    const response = await asociarPantallaUsuario(usuario.id, pantalla);
+
+    if (response.success) {
+      setMsgAlert(response.message);
+      setTipoMsg("success");
+      fetchPantallas();
+      handleClose();
+    } else {
+      setMsgAlert(response.message);
+      setTipoMsg("error");
+    }
+    setIsOpenAlert(true);
+    setIsLoading(false);
   };
 
-
-
   const handleCloseAlert = () => {
-    setIsOpenAlert( false );
+    setIsOpenAlert(false);
   };
 
   return (
-    <Dialog
-      open={ open }
-      onClose={ handleClose }
-    >
-      <DialogTitle>Asociar pantalla a Coronel</DialogTitle>
-      <DialogContent >
-        <FormControl fullWidth sx={ { textAlign: 'center', my: 4 } }>
-          <InputLabel id="demo-simple-select-label">Selecciona pantalla</InputLabel>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>
+        Asociar pantalla a {usuario.nombreCompleto.split(" ")[0]}
+      </DialogTitle>
+      <DialogContent sx={{ px: 3 }}>
+        <FormControl fullWidth sx={{ my: 4 }} error={!!errorPantalla}>
+          <InputLabel id="demo-simple-select-label">
+            Selecciona pantalla
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={ pantalla }
+            value={pantalla}
+            name="pantalla"
             label="Selecciona pantalla"
-            onChange={ handleChangePantalla }
+            onChange={handleChangePantalla}
           >
-            { pantallas.map( ( pantalla, index ) => (
-              <MenuItem key={ index } value={ pantalla }>{ pantalla.nombre }</MenuItem>
-            ) ) }
+            {pantallas.map((pantalla) => (
+              <MenuItem key={pantalla.id} value={pantalla.id}>
+                {pantalla.nombre}
+              </MenuItem>
+            ))}
           </Select>
+          <FormHelperText>{errorPantalla}</FormHelperText>
         </FormControl>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={ handleClose } variant="contained" color="error">Cancelar</Button>
-        <Button type="submit" onClick={ handleAsociarPantalla } variant="contained" >Asociar</Button>
+      <DialogActions sx={{ px: 3 }}>
+        <Button onClick={handleClose} variant="contained" color="error">
+          Cancelar
+        </Button>
+        <Button
+          type="submit"
+          onClick={handleAsociarPantalla}
+          variant="contained"
+        >
+          Asociar
+        </Button>
       </DialogActions>
-      <CustomProgress open={ isLoading } />
-      <CustomAlert handleClose={ handleCloseAlert } mensaje={ msgAlert } tipoMensaje={ tipoMsg } open={ isOpenAlert } />
+      {loadingPantallas && <CustomProgress open={loadingPantallas} />}
+      {isLoading && <CustomProgress open={isLoading} />}
+      <CustomAlert
+        handleClose={handleCloseAlert}
+        mensaje={msgAlert}
+        tipoMensaje={tipoMsg}
+        open={isOpenAlert}
+      />
     </Dialog>
   );
 };

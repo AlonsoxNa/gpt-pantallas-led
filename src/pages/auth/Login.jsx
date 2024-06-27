@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Button, Grid, IconButton, InputAdornment, TextField, Typography, Paper, Avatar } from '@mui/material';
+import { Button, Grid, IconButton, InputAdornment, TextField, Typography, Paper, Avatar, Link } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { login } from '../../services/authService';
@@ -15,7 +15,7 @@ export const Login = () => {
 
   const handleLogin = useUserStore( ( state ) => state.handleLogin );
 
-  const [ isOpen, setIsOpen ] = useState( false );
+  const [ isLoading, setIsLoading ] = useState( false );
   const [ isOpenAlert, setIsOpenAlert ] = useState( false );
   const [ msgAlert, setMsgAlert ] = useState( '' );
   const [ showPassword, setShowPassword ] = useState( false );
@@ -39,7 +39,7 @@ export const Login = () => {
   };
 
   const onSubmit = async ( data ) => {
-    setIsOpen( true );
+    setIsLoading( true );
 
     const response = await login( data );
 
@@ -55,10 +55,10 @@ export const Login = () => {
       }
       return;
     } else {
-      setMsgAlert( 'Credenciales incorrectas' );
+      setMsgAlert( response.message );
     }
     setIsOpenAlert( true );
-    setIsOpen( false );
+    setIsLoading( false );
   };
   return (
     <Grid
@@ -77,6 +77,7 @@ export const Login = () => {
         backgroundColor: "#fff",
         boxShadow: 3
       } }>
+        <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={ 2 } justifyContent="center">
           <Grid item>
             <Avatar
@@ -90,6 +91,11 @@ export const Login = () => {
             </Typography>
             <Typography variant="h5" textAlign="center" fontWeight="bold" fontSize="2rem">
               UTALCA
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body2" textAlign="center" sx={{ mt: 2 }}>
+              ¿No tienes una cuenta? <Link onClick={() => navigate('/register')} sx={{ cursor: 'pointer' }}>Regístrate</Link>
             </Typography>
           </Grid>
           <Grid item xs={ 12 }>
@@ -119,6 +125,7 @@ export const Login = () => {
                     aria-label="toggle password visibility"
                     onClick={ onClickShowPassword }
                     edge="end"
+                    tabIndex={-1}
                   >
                     { showPassword ? <VisibilityOff /> : <Visibility /> }
                   </IconButton>
@@ -138,15 +145,16 @@ export const Login = () => {
               fullWidth
               size='large'
               sx={ { py: 1, textTransform: 'none', fontWeight: 600, fontSize: '1rem', mt: 2, color: '#FFFFFF' } }
-              onClick={ handleSubmit( onSubmit ) }
+              type="submit"
             >
               Iniciar sesión
             </Button>
           </Grid>
         </Grid>
+      </form>
       </Paper>
       <CustomAlert handleClose={ handleCloseAlert } mensaje={ msgAlert } tipoMensaje={ 'error' } open={ isOpenAlert } />
-      <CustomProgress open={ isOpen } />
+      <CustomProgress open={ isLoading } />
     </Grid>
   );
 };

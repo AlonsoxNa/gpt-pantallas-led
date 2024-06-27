@@ -71,11 +71,11 @@ export const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Grid container justifyContent="end" alignItems="center" mr="1rem">
+          <Grid container justifyContent="end" alignItems="center" mr="1rem" >
             <IconButton sx={ { color: 'white' } } onClick={ handleClick }>
               <PersonIcon fontSize="large" />
             </IconButton>
-            <Typography sx={ { my: 'auto' } } onClick={ handleClick }>{ user.name.split( " " )[ 0 ] }</Typography>
+            <Typography sx={ { my: 'auto', cursor: 'pointer' } } onClick={ handleClick }>{ user.name.split( " " )[ 0 ] }</Typography>
             <Menu
               id="basic-menu"
               anchorEl={ anchorEl }

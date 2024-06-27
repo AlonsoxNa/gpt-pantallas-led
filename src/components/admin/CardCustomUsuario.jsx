@@ -1,57 +1,51 @@
-import AddLinkIcon from '@mui/icons-material/AddLink';
-import { Button, Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ModalAsociarPantalla } from './ModalAsociarPantalla';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-
-export const CardCustomUsuario = ( { usuario } ) => {
+export const CardCustomUsuario = ({ usuario }) => {
   const navigate = useNavigate();
 
-  const [ openModal, setOpenModal ] = useState( false );
-
   const onClickUser = () => {
-    navigate( `/admin/pantallas-usuario`, { state: usuario } );
-  };
-
-  const handleAsociarPantalla = () => {
-    setOpenModal( true );
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal( false );
+    navigate(`/admin/pantallas-usuario`, { state: usuario });
   };
 
   return (
-    <Card sx={ { minWidth: 275, mt: 4, boxShadow: 3 } } >
+    <Card sx={{ minWidth: 275, mt: 4, boxShadow: 3 }}>
       <CardContent>
-        <Typography variant="h5" component="h5" textAlign="center" sx={ { my: 1 } }>
-          { usuario.nombreCompleto }
+        <Typography
+          variant="h5"
+          component="h5"
+          textAlign="center"
+          sx={{ my: 1 }}
+        >
+          {usuario.nombreCompleto}
         </Typography>
       </CardContent>
-      <CardActions sx={ { justifyContent: 'center', gap: 4 } }>
+      <CardActions sx={{ justifyContent: "center", gap: 4 }}>
         <Button
           variant="contained"
           size="medium"
-          color={ usuario.habilitado ? "habilitado" : "deshabilitado" }
-          sx={ { textTransform: 'none', marginBottom: '24px' } }
+          color={usuario.habilitado ? "habilitado" : "deshabilitado"}
+          sx={{ textTransform: "none", marginBottom: "24px" }}
         >
-          { usuario.habilitado ? 'Habilitado' : 'Deshabilitado' }
+          {usuario.habilitado ? "Habilitado" : "Deshabilitado"}
         </Button>
         <Button
-          variant="contained"
+          variant="text"
           size="large"
-          color="tagSala"
-          sx={ { textTransform: 'none', marginBottom: '24px' } }
-          onClick={ onClickUser }
+          // color="tagSala"
+          sx={{ textTransform: "none", marginBottom: "24px" }}
+          onClick={onClickUser}
         >
-          { usuario.cantidadPantallas } pantallas
+          Ver pantallas
         </Button>
-        <IconButton sx={ { marginBottom: '24px' } } onClick={ handleAsociarPantalla } >
-          <AddLinkIcon />
-        </IconButton>
       </CardActions>
-      <ModalAsociarPantalla open={ openModal } handleClose={ handleCloseModal } usuario={ usuario } />
+
     </Card>
   );
 };

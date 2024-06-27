@@ -21,7 +21,6 @@ export const asociarPantallaUsuario = async (usuario_id, pantalla_id) => {
     const response = await axios.post(`${BASE_URL}/usuario-pantalla/`, {
       usuario_id,
       pantalla_id
-    
     })
 
     if (response.status === 201) {
@@ -42,9 +41,12 @@ export const desasociarPantallaUsuario = async (usuario_id, pantalla_id) => {
   try {
     
     const response = await axios.delete(`${BASE_URL}/usuario-pantalla/`, {
-      pantalla_id,
-      usuario_id
-    })
+        data: {
+          pantalla_id,
+          usuario_id
+        }
+      });
+      
 
     if ( response.status === 200 ) {
       return { success: true, message: "Pantalla desasociada correctamente" }
