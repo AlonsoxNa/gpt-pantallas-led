@@ -54,7 +54,6 @@ export const ModalCrearUsuario = ({ open, handleClose, fetchUsuarios }) => {
     } catch (error) {
       setMsgAlert("Error al crear usuario");
       setTipoMsg("error");
-      console.error(error);
     } finally {
       setIsLoading(false);
       setIsOpenAlert(true);

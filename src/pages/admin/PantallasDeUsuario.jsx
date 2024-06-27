@@ -1,38 +1,27 @@
 import AddLinkIcon from "@mui/icons-material/AddLink";
-import LinkOffIcon from "@mui/icons-material/LinkOff";
 import { Button, Grid, Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
-import { CardCustomPantalla } from "../../components/admin/CardCustomPantalla";
-import { usePantallasUsuario } from "../../hooks/admin/usePantallasUsuario";
-import { CustomProgress } from "../../components/ui/CustomProgress";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { CardCustomPantallaUsuario } from "../../components/admin/CardCustomPantallaUsuario";
 import { ModalAsociarPantalla } from "../../components/admin/ModalAsociarPantalla";
-import { desasociarPantallaUsuario } from "../../services/usuarioPantallaService";
 import { CustomAlert } from "../../components/ui/CustomAlert";
+import { CustomProgress } from "../../components/ui/CustomProgress";
+import { usePantallasUsuario } from "../../hooks/admin/usePantallasUsuario";
 
 export const PantallasDeUsuario = () => {
   const location = useLocation();
   const usuario = location.state;
 
   const [openModal, setOpenModal] = useState(false);
-  const [alerta, setAlerta] = useState({
+
+  const [alertaDesasociar, setAlertaDesasociar] = useState({
     open: false,
     mensaje: "",
     tipo: "error",
   });
 
-  const { isLoading, pantallasUsuario } = usePantallasUsuario(usuario.id);
-
-  const onDesasociarPantalla = (pantalla) => {
-    desasociarPantallaUsuario(usuario.id, pantalla.id).then((response) => {
-      if (response.success) {
-        setAlerta({ open: true, mensaje: response.message, tipo: "success" });
-        pantallasUsuario.pop(pantalla); // No se si es la mejor forma de hacerlo
-      } else {
-        setAlerta({ open: true, mensaje: response.message, tipo: "error" });
-      }
-    });
-  };
+  const { isLoading, pantallasUsuario, getPantallasUsuario } =
+    usePantallasUsuario(usuario.id);
 
   const handleAsociarPantalla = () => {
     setOpenModal(true);
@@ -43,7 +32,7 @@ export const PantallasDeUsuario = () => {
   };
 
   const handleCloseAlert = () => {
-    setAlerta({ ...alerta, open: false });
+    setAlertaDesasociar({ ...alertaDesasociar, open: false });
   };
 
   return (
@@ -67,7 +56,12 @@ export const PantallasDeUsuario = () => {
         <Grid container>
           {pantallasUsuario.map((pantalla, index) => (
             <Grid item xs={12} key={index}>
-              <CardCustomPantallaUsuario pantalla={pantalla.pantalla} />
+              <CardCustomPantallaUsuario
+                pantalla={pantalla.pantalla}
+                setAlertaDesasociar={setAlertaDesasociar}
+                usuario={usuario}
+                fetchPantallas={getPantallasUsuario}
+              />
             </Grid>
           ))}
         </Grid>
@@ -80,11 +74,12 @@ export const PantallasDeUsuario = () => {
           fetchPantallas={getPantallasUsuario}
         />
       )}
+
       <CustomAlert
         handleClose={handleCloseAlert}
-        mensaje={alerta.mensaje}
-        tipoMensaje={alerta.tipo}
-        open={alerta.open}
+        mensaje={alertaDesasociar.mensaje}
+        tipoMensaje={alertaDesasociar.tipo}
+        open={alertaDesasociar.open}
       />
     </>
   );
