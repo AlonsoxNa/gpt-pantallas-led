@@ -27,3 +27,29 @@ export const login = async ({email, password}) => {
 
   }
 }
+
+export const registerUser = async ({email, password, name}) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/usuario/registrar`, {
+        email,
+        contrasena: password,
+        nombre_completo: name
+      });
+  
+      if (response.status === 201) {
+        return { success: true, data: response.data };
+      }
+  
+      return { success: false, message: "Ha ocurrido un error" };
+    } catch (error) {
+      let message = "Ha ocurrido un error";
+  
+      if (error.response.status === 400) {
+        message = "Datos inválidos";
+      } else if (error.response.status === 409) {
+        message = "El usuario ya existe";
+      }
+  
+      return { success: false, message };
+    }
+  }
