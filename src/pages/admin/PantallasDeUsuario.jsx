@@ -12,7 +12,9 @@ export const PantallasDeUsuario = () => {
   const location = useLocation();
   const usuario = location.state;
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false)
+  const [alerta, setAlerta] = useState({ open: false, mensaje: '', tipo: 'error' })
+
 
   const [alertaDesasociar, setAlertaDesasociar] = useState({
     open: false,
@@ -23,13 +25,18 @@ export const PantallasDeUsuario = () => {
   const { isLoading, pantallasUsuario, getPantallasUsuario } =
     usePantallasUsuario(usuario.id);
 
+
   const handleAsociarPantalla = () => {
-    setOpenModal(true);
-  };
+    setOpenModal(true)
+  }
 
   const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+    setOpenModal(false)
+  }
+
+  const handleCloseAlert = () => {
+    setAlerta({ ...alerta, open: false })
+  }
 
   const handleCloseAlert = () => {
     setAlertaDesasociar({ ...alertaDesasociar, open: false });
