@@ -143,11 +143,17 @@ export const borrarPantalla = async (id_pantalla) => {
   }
 }
 
-export const borrarMensajeProgramado = async (id_usuario, id_pantalla) => {
+export const borrarMensajeProgramado = async (id_usuario, pantalla_id) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/pantalla/cron-activos?id=${id_usuario}`, {
-      pantalla_id: id_pantalla
-    })
+
+    const response = await axios.delete(`${BASE_URL}/pantalla/cron-activos?id=${String(id_usuario)}`, {
+      data: { pantalla_id: String(pantalla_id)}
+    }, {
+      headers: {
+        'Content-Type': 'application/json' // Asegura el tipo de contenido como JSON
+      }
+    }
+    )
 
     if ( response.status === 200 ) {
       return { success: true, message: "Se borró correctamente el mensaje programado" };

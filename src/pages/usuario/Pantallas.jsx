@@ -7,7 +7,8 @@ import { useUserStore } from "../../store/user.store";
 export const Pantallas = () => {
   const user = useUserStore((state) => state.user);
 
-  const { isLoading, pantallasUsuario } = usePantallasUsuario(user.id);
+  const { isLoading, pantallasUsuario, getPantallasUsuario } =
+    usePantallasUsuario(user.id);
 
   return (
     <>
@@ -20,7 +21,10 @@ export const Pantallas = () => {
       <Grid container>
         {pantallasUsuario.map((pantalla, index) => (
           <Grid item xs={12} key={index}>
-            <CardCustomPantalla pantalla={pantalla.pantalla} />
+            <CardCustomPantalla
+              pantalla={pantalla.pantalla}
+              fetchPantallas={getPantallasUsuario}
+            />
           </Grid>
         ))}
         {!isLoading && pantallasUsuario.length === 0 ? (
