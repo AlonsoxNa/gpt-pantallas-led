@@ -38,10 +38,6 @@ export const PantallasDeUsuario = () => {
     setAlerta({ ...alerta, open: false })
   }
 
-  const handleCloseAlert = () => {
-    setAlertaDesasociar({ ...alertaDesasociar, open: false });
-  };
-
   return (
     <>
       <CustomProgress open={isLoading} />
