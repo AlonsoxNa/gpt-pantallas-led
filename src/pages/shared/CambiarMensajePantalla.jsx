@@ -115,7 +115,7 @@ export const CambiarMensajePantalla = () => {
             Pantalla: <br /> {pantalla.nombre}{" "}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <TextField
             variant="outlined"
             multiline
@@ -133,7 +133,7 @@ export const CambiarMensajePantalla = () => {
             }}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid container direction="row">
           <FormControlLabel
             control={
               <Checkbox checked={data.programado} onChange={setProgramado} />
@@ -142,7 +142,7 @@ export const CambiarMensajePantalla = () => {
           />
         </Grid>
         <Grid container gap={2}>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth sx={{ bgcolor: "white" }}>
               <InputLabel id="demo-simple-select-label">
                 Selecciona animación
@@ -166,9 +166,8 @@ export const CambiarMensajePantalla = () => {
           {data.programado && <MensajeProgramadoForm />}
         </Grid>
 
-
-        <Grid item xs={12}>
-          <Grid container justifyContent="center">
+        <Grid item xs={12} md={6}>
+          <Grid container direction="row" justifyContent="center">
             <Button
               variant="contained"
               size="large"
@@ -176,7 +175,7 @@ export const CambiarMensajePantalla = () => {
                 py: 1,
                 textTransform: "none",
                 color: "#FFFFFF",
-                fontSize: "1rem",
+                // fontSize: "1rem",
               }}
               onClick={handleChangeMensaje}
             >
