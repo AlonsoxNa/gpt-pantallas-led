@@ -11,13 +11,26 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ModalBorrarPantalla } from "./ModalBorrarPantalla";
+import { ModalBorrarMensaje } from "../shared/ModalBorrarMensaje";
+import { useUserStore } from "../../store/user.store";
 
-export const CardCustomPantalla = ({ pantalla, fetchPantallas, setIsOpenAlert, setMsgAlert, setTipoMsg }) => {
+export const CardCustomPantalla = ({
+  pantalla,
+  fetchPantallas,
+  setIsOpenAlert,
+  setMsgAlert,
+  setTipoMsg,
+}) => {
   const navigate = useNavigate();
+
+  const user = useUserStore((state) => state.user);
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-  const [ pantallaId, setPantallaId ] = useState();
+  const [openDeleteProgramadoModal, setOpenDeleteProgramadoModal] =
+    useState(false);
+
+  const [pantallaId, setPantallaId] = useState();
 
   const onEditPantalla = () => {
     navigate("/admin/cambiar-mensaje-pantalla", { state: { pantalla } });
@@ -32,7 +45,13 @@ export const CardCustomPantalla = ({ pantalla, fetchPantallas, setIsOpenAlert, s
     setOpenDeleteModal(false);
   };
 
-  
+  const onDeleteMensaje = () => {
+    setOpenDeleteProgramadoModal(true);
+  };
+
+  const handleCloseProgramadoModal = () => {
+    setOpenDeleteProgramadoModal(false);
+  };
 
   return (
     <Card sx={{ minWidth: 275, mt: 4, boxShadow: 3 }}>
@@ -69,7 +88,7 @@ export const CardCustomPantalla = ({ pantalla, fetchPantallas, setIsOpenAlert, s
           variant="contained"
           size="medium"
           color="tagEdificio"
-          sx={{ textTransform: "none", marginBottom: "24px" }}
+          sx={{ textTransform: "none" }}
         >
           {pantalla.habilitada ? "Habilitada" : "Deshabilitada"}
         </Button>
@@ -78,7 +97,7 @@ export const CardCustomPantalla = ({ pantalla, fetchPantallas, setIsOpenAlert, s
           variant="contained"
           size="medium"
           color="error"
-          sx={{ textTransform: "none", marginBottom: "24px" }}
+          sx={{ textTransform: "none" }}
           startIcon={<DeleteIcon fontSize="medium" />}
           onClick={onDeletePantalla}
         >
@@ -89,11 +108,23 @@ export const CardCustomPantalla = ({ pantalla, fetchPantallas, setIsOpenAlert, s
           variant="contained"
           size="medium"
           color="tagSala"
-          sx={{ textTransform: "none", marginBottom: "24px" }}
+          sx={{ textTransform: "none" }}
           startIcon={<EditIcon fontSize="medium" />}
           onClick={onEditPantalla}
         >
           Editar
+        </Button>
+      </CardActions>
+      <CardActions sx={{ justifyContent: "center" }}>
+        <Button
+          variant="outlined"
+          size="medium"
+          color="error"
+          sx={{ textTransform: "none", marginBottom: "12px" }}
+          startIcon={<DeleteIcon fontSize="medium" />}
+          onClick={onDeleteMensaje}
+        >
+          Borrar mensaje programado
         </Button>
       </CardActions>
       {openDeleteModal && (
@@ -107,7 +138,17 @@ export const CardCustomPantalla = ({ pantalla, fetchPantallas, setIsOpenAlert, s
           setMsgAlert={setMsgAlert}
         />
       )}
-      
+      {openDeleteProgramadoModal && (
+        <ModalBorrarMensaje
+          open={openDeleteProgramadoModal}
+          handleClose={handleCloseProgramadoModal}
+          fetchPantallas={fetchPantallas}
+          setIsOpenAlert={setIsOpenAlert}
+          setTipoMsg={setTipoMsg}
+          setMsgAlert={setMsgAlert}
+          data={{ usuario_id: user.id, pantalla_id: pantalla.id }}
+        />
+      )}
     </Card>
   );
 };

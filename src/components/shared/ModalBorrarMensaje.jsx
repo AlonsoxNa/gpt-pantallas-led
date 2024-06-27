@@ -30,7 +30,7 @@ export const ModalBorrarMensaje = ({
     const response = await borrarMensajeProgramado(
       data.usuario_id,
       data.pantalla_id
-    );
+    ).finally(() => setIsLoading(false));
 
     if (response.success) {
       setMsgAlert(response.message);

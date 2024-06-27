@@ -32,7 +32,6 @@ export const CardCustomPantalla = ({ pantalla, fetchPantallas }) => {
   };
 
   const onDeleteMensaje = () => {
-    console.log("Borrar mensaje programado");
     setOpenDeleteProgramadoModal(true);
   };
 

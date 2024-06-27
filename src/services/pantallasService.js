@@ -148,10 +148,6 @@ export const borrarMensajeProgramado = async (id_usuario, pantalla_id) => {
 
     const response = await axios.delete(`${BASE_URL}/pantalla/cron-activos?id=${String(id_usuario)}`, {
       data: { pantalla_id: String(pantalla_id)}
-    }, {
-      headers: {
-        'Content-Type': 'application/json' // Asegura el tipo de contenido como JSON
-      }
     }
     )
 
@@ -164,11 +160,15 @@ export const borrarMensajeProgramado = async (id_usuario, pantalla_id) => {
     }
 
   } catch (error) {
-    if ( error.response.status === 404 ) {
+    if ( !error.response ) {
+      return { success: false, message: "No se pudo borrar el mensaje programado" }
+    }
+
+    if ( error.response?.status === 404 ) {
       return { success: false, message: "No se encontró la pantalla" }
-    } else if ( error.response.status === 412 ) {
+    } else if ( error.response?.status === 412 ) {
       return { success: false, message: "Usuario no encontrado" }
-    } else if ( error.response.status === 414 ) {
+    } else if ( error.response?.status === 414 ) {
       return { success: false, message: "El usuario no tiene permisos para enviar mensajes" }
     } else {
       return { success: false, message: "No se pudo borrar el mensaje programado" }
