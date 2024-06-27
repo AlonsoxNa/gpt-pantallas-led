@@ -16,7 +16,7 @@ import { asociarPantallaUsuario } from "../../services/usuarioPantallaService";
 import { CustomProgress } from "../ui/CustomProgress";
 import { CustomAlert } from "../ui/CustomAlert";
 
-export const ModalAsociarPantalla = ({ open, handleClose, usuario }) => {
+export const ModalAsociarPantalla = ({ open, handleClose, usuario, fetchPantallas }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { isLoading: loadingPantallas, pantallas } = usePantallas();
@@ -49,6 +49,8 @@ export const ModalAsociarPantalla = ({ open, handleClose, usuario }) => {
     if (response.success) {
       setMsgAlert(response.message);
       setTipoMsg("success");
+      fetchPantallas();
+      handleClose();
     } else {
       setMsgAlert(response.message);
       setTipoMsg("error");

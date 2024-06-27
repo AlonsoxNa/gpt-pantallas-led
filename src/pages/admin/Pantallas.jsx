@@ -1,22 +1,21 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Button, Grid, Typography } from "@mui/material";
+import { useState } from "react";
 import { CardCustomPantalla } from "../../components/admin/CardCustomPantalla";
-import { useNavigate } from "react-router-dom";
+import { ModalCrearPantalla } from "../../components/admin/ModalCrearPantalla";
 import { CustomProgress } from "../../components/ui/CustomProgress";
 import { usePantallas } from "../../hooks/usePantallas";
-import { useState } from "react";
-import { ModalCrearPantalla } from "../../components/admin/ModalCrearPantalla";
+import { CustomAlert } from '../../components/ui/CustomAlert';
 
 export const Pantallas = () => {
-  const navigate = useNavigate();
-
   const { isLoading, pantallas, obtenerPantallas } = usePantallas();
 
   const [openModal, setOpenModal] = useState(false);
 
-  const onEditPantalla = (pantalla) => {
-    navigate("/admin/cambiar-mensaje-pantalla", { state: { pantalla } });
-  };
+  // Alertas para borrado de pantalla
+  const [isOpenAlert, setIsOpenAlert] = useState(false);
+  const [msgAlert, setMsgAlert] = useState("");
+  const [tipoMsg, setTipoMsg] = useState("success");
 
   const handleCrearPantallaModal = () => {
     setOpenModal(true);
@@ -24,6 +23,10 @@ export const Pantallas = () => {
 
   const handleCloseModal = () => {
     setOpenModal(false);
+  };
+
+  const handleCloseAlert = () => {
+    setIsOpenAlert(false);
   };
 
   return (
@@ -44,13 +47,26 @@ export const Pantallas = () => {
           <Grid item xs={12} key={pantalla.id}>
             <CardCustomPantalla
               pantalla={pantalla}
-              accionIcono={onEditPantalla}
+              fetchPantallas={obtenerPantallas}
+              setIsOpenAlert={setIsOpenAlert}
+              setMsgAlert={setMsgAlert}
+              setTipoMsg={setTipoMsg}
             />
           </Grid>
-        ))}
+          
+        ))
+        }
       </Grid>
       {openModal && (
         <ModalCrearPantalla open={openModal} handleClose={handleCloseModal} fetchPantallas={obtenerPantallas} />
+      )}
+      {isOpenAlert && (
+        <CustomAlert
+          handleClose={handleCloseAlert}
+          mensaje={msgAlert}
+          tipoMensaje={tipoMsg}
+          open={isOpenAlert}
+        />
       )}
     </>
   );

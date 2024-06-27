@@ -122,3 +122,56 @@ export const crearPantalla = async (nombre) => {
     }
   }
 };
+
+export const borrarPantalla = async (id_pantalla) => {
+  try {
+    
+    const response = await axios.delete(`${BASE_URL}/pantalla?id=${id_pantalla}`);
+
+    if ( response.status === 200 ) {
+      return { success: true, message: "Se borró correctamente la pantalla" };
+    } else {
+      return { success: false, message: "No se pudo borrar la pantalla" }
+    }
+  } catch (error) {
+
+    if ( error.response.status === 404 ) {
+      return { success: false, message: "No se encontró la pantalla" };
+    } else {
+      return { success: false, message: "No se pudo borrar la pantalla" };
+    }
+  }
+}
+
+export const borrarMensajeProgramado = async (id_usuario, pantalla_id) => {
+  try {
+
+    const response = await axios.delete(`${BASE_URL}/pantalla/cron-activos?id=${String(id_usuario)}`, {
+      data: { pantalla_id: String(pantalla_id)}
+    }
+    )
+
+    if ( response.status === 200 ) {
+      return { success: true, message: "Se borró correctamente el mensaje programado" };
+    } else if ( response.status === 204 ) {
+      return { success: false, message: "No se encontró el mensaje programado" };
+    } else {
+      return { success: false, message: "No se pudo borrar el mensaje programado" };
+    }
+
+  } catch (error) {
+    if ( !error.response ) {
+      return { success: false, message: "No se pudo borrar el mensaje programado" }
+    }
+
+    if ( error.response?.status === 404 ) {
+      return { success: false, message: "No se encontró la pantalla" }
+    } else if ( error.response?.status === 412 ) {
+      return { success: false, message: "Usuario no encontrado" }
+    } else if ( error.response?.status === 414 ) {
+      return { success: false, message: "El usuario no tiene permisos para enviar mensajes" }
+    } else {
+      return { success: false, message: "No se pudo borrar el mensaje programado" }
+    }
+  }
+}
