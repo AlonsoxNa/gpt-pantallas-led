@@ -13,8 +13,6 @@ export const PantallasDeUsuario = () => {
   const usuario = location.state;
 
   const [openModal, setOpenModal] = useState(false)
-  const [alerta, setAlerta] = useState({ open: false, mensaje: '', tipo: 'error' })
-
 
   const [alertaDesasociar, setAlertaDesasociar] = useState({
     open: false,
@@ -35,7 +33,7 @@ export const PantallasDeUsuario = () => {
   }
 
   const handleCloseAlert = () => {
-    setAlerta({ ...alerta, open: false })
+    setAlertaDesasociar({ ...alertaDesasociar, open: false })
   }
 
   return (

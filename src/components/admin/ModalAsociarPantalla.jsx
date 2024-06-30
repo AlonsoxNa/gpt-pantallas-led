@@ -50,7 +50,6 @@ export const ModalAsociarPantalla = ({ open, handleClose, usuario, fetchPantalla
       setMsgAlert(response.message);
       setTipoMsg("success");
       fetchPantallas();
-      handleClose();
     } else {
       setMsgAlert(response.message);
       setTipoMsg("error");
