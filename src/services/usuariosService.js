@@ -12,7 +12,16 @@ export const obtenerUsuariosApi = async () => {
     return {success: false, message: response.data.message, data: []};
 
   } catch (error) {
-    return {success: false, message: error.response.message, data: []};
+
+    if ( error.response ) {
+
+      return {success: false, message: error.response.message, data: []};
+    } else if ( error.request ) {
+      
+      return { success: false, message: "No se pudo conectar con el servidor", data: [] };
+    }
+
+    return { success: false, message: "No se pudo obtener los usuarios", data: [] };
   }
 }
 
@@ -32,10 +41,15 @@ export const crearUsuario = async ({email, nombre, password}) => {
     return { success: false, message: "No se pudo crear el usuario" };
   } catch (error) {
 
-    if ( error.response.status === 409 ) {
-      return { success: false, message: "El correo ya está registrado" };
-    } else {
-      return {success: false, message: "No se pudo crear el usuario"};
+    if ( error.response ) {
+      if ( error.response.status === 409 ) {
+        return { success: false, message: "El correo ya está registrado" };
+      }
+    } else if ( error.request ) {
+      
+      return { success: false, message: "No se pudo conectar con el servidor" };
     }
+    
+    return {success: false, message: "No se pudo crear el usuario"};
   }
 }

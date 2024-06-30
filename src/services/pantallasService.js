@@ -11,7 +11,16 @@ export const obtenerPantallasApi = async () => {
     }
     return { success: false, message: response.data.message, data: [] };
   } catch (error) {
-    return { success: false, message: error.response.message, data: [] };
+
+    if ( error.response ) {
+      
+      return { success: false, message: error.response.message, data: [] };
+    } else if ( error.request ) {
+
+      return { success: false, message: "No se ha podido conectar con el servidor", data: [] };
+    }
+
+    return { success: false, message: "No se pudo obtener las pantallas", data: [] };
   }
 };
 
@@ -39,9 +48,17 @@ export const enviarMensajeDefecto = async (
     }
     return { success: false, message: "No se pudo enviar el mensaje" };
   } catch (error) {
-    if (error.response.status === 404) {
-      return { success: false, message: "No se encontró la pantalla" };
+
+    if ( error.response ) {
+      if (error.response.status === 404) {
+        
+        return { success: false, message: "No se encontró la pantalla" };
+      }
+    } else if ( error.request ) {
+        
+      return { success: false, message: "No se pudo conectar con el servidor" };
     }
+
     return { success: false, message: "No se pudo enviar el mensaje" };
   }
 };
@@ -78,25 +95,30 @@ export const enviarMensajeProgramado = async (
 
     return { success: false, message: "No se pudo enviar el mensaje" };
   } catch (error) {
-    console.log(error);
-    if (error.response.status === 404) {
-      return { success: false, message: "No se encontró la pantalla" };
-    } else if (error.response.status === 412) {
-      return { success: false, message: "Usuario no encontrado" };
-    } else if (error.response.status === 414) {
-      return { success: false, message: "El usuario no tiene permisos para enviar mensajes" };
-    } else if (error.response.status === 413) {
-      return { success: false, message: "Ya tienes mensajes programados" };
-    } else if (error.response.status === 411) {
-      return { success: false, message: "Si tienes fecha de término debes tener fecha de inicio" };
-    } else if ( error.response.status === 410 ) {
-      return { success: false, message: "Si tienes hora de inicio debes tener fecha de inicio" };
-    } else if ( error.response.status === 415) {
-      return { success: false, message: "Si tienes hora de fin debes tener fecha de término" };
-    } else if ( error.response.status === 416) {
-      return { success: false, message: "La fecha de fin debe ser mayor a la fecha de inicio"};
-    } else if (error.response.status === 417) {
-      return { success: false, message: "La hora de fin debe ser mayor a la hora de inicio"};
+
+    if ( error.response ) {
+      if (error.response.status === 404) {
+        return { success: false, message: "No se encontró la pantalla" };
+      } else if (error.response.status === 412) {
+        return { success: false, message: "Usuario no encontrado" };
+      } else if (error.response.status === 414) {
+        return { success: false, message: "El usuario no tiene permisos para enviar mensajes" };
+      } else if (error.response.status === 413) {
+        return { success: false, message: "Ya tienes mensajes programados" };
+      } else if (error.response.status === 411) {
+        return { success: false, message: "Si tienes fecha de término debes tener fecha de inicio" };
+      } else if ( error.response.status === 410 ) {
+        return { success: false, message: "Si tienes hora de inicio debes tener fecha de inicio" };
+      } else if ( error.response.status === 415) {
+        return { success: false, message: "Si tienes hora de fin debes tener fecha de término" };
+      } else if ( error.response.status === 416) {
+        return { success: false, message: "La fecha de fin debe ser mayor a la fecha de inicio"};
+      } else if (error.response.status === 417) {
+        return { success: false, message: "La hora de fin debe ser mayor a la hora de inicio"};
+      }
+    } else if ( error.request ) {
+
+      return { success: false, message: "No se pudo conectar con el servidor" };
     }
 
     return { success: false, message: "No se pudo enviar el mensaje" };
@@ -115,11 +137,17 @@ export const crearPantalla = async (nombre) => {
 
     return { success: false, message: "No se pudo crear la pantalla" };
   } catch (error) {
-    if (error.response.status === 409) {
-      return { success: false, message: "Ya existe una pantalla con ese nombre" }
-    } else {
-      return { success: false, message: "No se pudo crear la pantalla" };
+
+    if ( error.response ) {
+      if (error.response.status === 409) {
+        return { success: false, message: "Ya existe una pantalla con ese nombre" }
+      }
+    } else if ( error.request ) {
+
+      return { success: false, message: "No se pudo conectar con el servidor" }
     }
+
+    return { success: false, message: "No se pudo crear la pantalla" };
   }
 };
 
@@ -135,11 +163,16 @@ export const borrarPantalla = async (id_pantalla) => {
     }
   } catch (error) {
 
-    if ( error.response.status === 404 ) {
-      return { success: false, message: "No se encontró la pantalla" };
-    } else {
-      return { success: false, message: "No se pudo borrar la pantalla" };
+    if ( error.response ) {
+      if ( error.response.status === 404 ) {
+        return { success: false, message: "No se encontró la pantalla" };
+      }
+    } else if ( error.request ) {
+      
+      return { success: false, message: "No se pudo conectar con el servidor" };
     }
+
+    return { success: false, message: "No se pudo borrar la pantalla" };
   }
 }
 
@@ -160,18 +193,19 @@ export const borrarMensajeProgramado = async (id_usuario, pantalla_id) => {
     }
 
   } catch (error) {
-    if ( !error.response ) {
-      return { success: false, message: "No se pudo borrar el mensaje programado" }
+    if ( error.response ) {
+      if ( error.response.status === 404 ) {
+        return { success: false, message: "No se encontró la pantalla" };
+      } else if ( error.response.status === 412 ) {
+        return { success: false, message: "Usuario no encontrado" };
+      } else if ( error.response.status === 414 ) {
+        return { success: false, message: "El usuario no tiene permisos para enviar mensajes" };
+      } 
+    } else if ( error.request ) {
+
+      return { success: false, message: "No se pudo conectar con el servidor" };
     }
 
-    if ( error.response?.status === 404 ) {
-      return { success: false, message: "No se encontró la pantalla" }
-    } else if ( error.response?.status === 412 ) {
-      return { success: false, message: "Usuario no encontrado" }
-    } else if ( error.response?.status === 414 ) {
-      return { success: false, message: "El usuario no tiene permisos para enviar mensajes" }
-    } else {
-      return { success: false, message: "No se pudo borrar el mensaje programado" }
-    }
+    return { success: false, message: "No se pudo borrar el mensaje programado" };
   }
 }

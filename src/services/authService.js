@@ -19,12 +19,18 @@ export const login = async ({email, password}) => {
 
     return {success: false, message: "Ha ocurrido un error"};
   } catch (error) {
-    if (error.response.status === 401 | error.response.status === 404) {
-      return { success: false, message: "Credenciales incorrectas"}
-    } else {
-      return {success: false, message: "Ha ocurrido un error"};
-    }
+    
+    if (error.response) {
+      if (error.response.status === 401 | error.response.status === 404) {
+        return { success: false, message: "Credenciales incorrectas"}
+      }
 
+      return { success: false, message: "Ha ocurrido un error" };
+    } else if ( error.request ) {
+      return { success: false, message: "No se ha podido conectar con el servidor" };
+    } 
+    
+    return { success: false, message: "Ha ocurrido un error" };
   }
 }
 
@@ -42,14 +48,18 @@ export const registerUser = async ({email, password, name}) => {
   
       return { success: false, message: "Ha ocurrido un error" };
     } catch (error) {
-      let message = "Ha ocurrido un error";
   
-      if (error.response.status === 400) {
-        message = "Datos inválidos";
-      } else if (error.response.status === 409) {
-        message = "El usuario ya existe";
+      if ( error.response ) {
+        if (error.response.status === 400) {
+          return { success: false, message: "Datos inválidos"};
+        } else if (error.response.status === 409) {
+          return { success: false, message: "El usuario ya existe" };
+        }
+        return { success: false, message: "Ha ocurrido un error" };
+      } else if ( error.request ) {
+        return { success: false, message: "No se ha podido conectar con el servidor" };
       }
   
-      return { success: false, message };
+      return { success: false, message: "Ha ocurrido un error" };
     }
   }

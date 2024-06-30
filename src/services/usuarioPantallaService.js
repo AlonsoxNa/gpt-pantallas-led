@@ -12,7 +12,16 @@ export const getPantallasUsuarioApi = async (id_usuario) => {
     return {success: false, message: "Error al obtener las pantallas del usuario", data: []};
 
   } catch (error) {
-    return {success: false, message: error.response.message, data: []};
+
+    if ( error.response ) {
+      
+      return {success: false, message: error.response.message, data: []};
+    } else if ( error.request ) {
+
+      return { success: false, message: "No se pudo conectar con el servidor", data: [] };
+    }
+
+    return { success: false, message: "Ha ocurrido un error" };
   }
 }
 
@@ -29,11 +38,16 @@ export const asociarPantallaUsuario = async (usuario_id, pantalla_id) => {
     return { success: false, message: "Error al asociar la pantalla" };
   } catch (error) {
 
-    if (error.response.status === 409) {
-      return { success: false, message: "Ya existe la asociación" }
+    if ( error.response ) {
+      if (error.response.status === 409) {
+        return { success: false, message: "Ya existe la asociación" };
+      }
+    } else if ( error.request ) {
+
+      return { success: false, message: "No se pudo conectar con el servidor" };
     }
 
-    return { success: false, message: "Ha ocurrido un error" }
+    return { success: false, message: "Ha ocurrido un error" };
   }
 }
 
@@ -54,8 +68,14 @@ export const desasociarPantallaUsuario = async (usuario_id, pantalla_id) => {
 
     return { success: false, message: "Ha ocurrido un error al desasociar"}
   } catch (error) {
-    if ( error.response.status === 409 ) {
-      return { success: false, message: "No existe la asociación" };
+    
+    if ( error.response ) {
+      if ( error.response.status === 409 ) {
+        return { success: false, message: "No existe la asociación" };
+      }
+    } else if ( error.request ) {
+
+      return { success: false, message: "No se pudo conectar con el servidor" }
     }
 
     return { success: false, message: "Ha ocurrido un error al desasociar" };
