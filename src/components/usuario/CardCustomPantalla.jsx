@@ -44,7 +44,7 @@ export const CardCustomPantalla = ({ pantalla, fetchPantallas }) => {
   };
 
   return (
-    <Card sx={{ minWidth: 275, mt: 4, boxShadow: 3 }}>
+    <Card sx={{ minWidth: 275, mt: 4, boxShadow: 3, pb: 2 }}>
       <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
         <Typography
           variant="h6"
@@ -96,18 +96,18 @@ export const CardCustomPantalla = ({ pantalla, fetchPantallas }) => {
         </Button>
         <br />
       </CardActions>
-      <CardActions sx={{ justifyContent: "center" }}>
+      {pantalla.mensajeActual !== pantalla.mensajeDefecto && <CardActions sx={{ justifyContent: "center" }}>
         <Button
           variant="outlined"
           size="medium"
           color="error"
-          sx={{ textTransform: "none", marginBottom: "12px" }}
+          sx={{ textTransform: "none" }}
           startIcon={<DeleteIcon fontSize="medium" />}
           onClick={onDeleteMensaje}
         >
           Borrar mensaje programado
         </Button>
-      </CardActions>
+      </CardActions>}
       {openDeleteProgramadoModal && (
         <ModalBorrarMensaje
           open={openDeleteProgramadoModal}
